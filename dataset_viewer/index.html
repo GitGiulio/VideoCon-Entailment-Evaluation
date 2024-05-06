@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Videos</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .video-grid-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns */
+            grid-gap: 20px; /* Gap between videos */
+        }
+
+        .video-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .video-container {
+            margin-bottom: 20px;
+        }
+
+        .highlighted-video {
+            border: 3px solid green;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        #next-button {
+            margin-top: 20px;
+            background-color: #ff6f61; /* Vibrant color */
+            color: #fff; /* Text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #next-button:hover {
+            background-color: #ff8c7b; /* Darker shade on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow on hover */
+        }
+
+        #next-button::after {
+            content: "\2192"; /* Unicode arrow right symbol */
+            margin-left: 5px;
+        }
+
+        .videocon-highlighted-video {
+            border: 3px solid violet;
+        }
+
+        .clip-flant5-xxl-highlighted-video {
+            border: 3px solid blue;
+        }
+
+        .instructblip-flant5-xxl-highlighted-video {
+            border: 3px solid red;
+        }
+
+        .llava-v15-13b-highlighted-video {
+            border: 3px solid green;
+        }
+
+        .mean-highlighted-video {
+            border: 3px solid orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>Synthetic Videos</h1>
+    <div id="videos-container" class="video-grid-container"></div>
+    <button id="next-button">Next</button>
+
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src = "script.js" ></script>
+</body>
+</html>

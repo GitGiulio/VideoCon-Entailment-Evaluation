@@ -1,14 +1,14 @@
 import pandas as pd
 
-clip_flant = pd.read_csv('videocon_clip-flant5-xxl.csv')
-instructblip_flant = pd.read_csv('videocon_instructblip-flant5-xxl.csv')
-llava = pd.read_csv('videocon_llava-v1.5-13b.csv')
+clip_flant = pd.read_csv('../data/videocon_clip-flant5-xxl.csv')
+instructblip_flant = pd.read_csv('../data/videocon_instructblip-flant5-xxl.csv')
+llava = pd.read_csv('../data/videocon_llava-v1.5-13b.csv')
 
 
 #clip_flant['videopath'] = clip_flant['videopath'].str[9:-11]
 #instructblip_flant['videopath'] = instructblip_flant['videopath'].str[64:-11]
 #llava['videopath'] = llava['videopath'].str[64:-11]
-#
+# I did this to have all the videopath identical to the  other csvs
 #clip_flant.to_csv('videocon_clip-flant5-xxl.csv', index=False)
 #instructblip_flant.to_csv('videocon_instructblip-flant5-xxl.csv', index=False)
 #llava.to_csv('videocon_llava-v1.5-13b.csv', index=False)
@@ -23,4 +23,4 @@ for index,row in clip_flant.iterrows():
 
 clip_flant.drop_duplicates(subset=['videopath','text'], keep='first',inplace=True)
 
-clip_flant.to_csv('ff_aligments.csv', index=False)
+clip_flant.to_csv('../data/ff_aligments.csv', index=False)

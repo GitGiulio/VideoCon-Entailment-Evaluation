@@ -1,7 +1,7 @@
 import pandas as pd
 
-ff_aligments = pd.read_csv('ff_aligments.csv')
-final_df = pd.read_csv('../final_dataset.csv')
+ff_aligments = pd.read_csv('../data/ff_aligments.csv')
+final_df = pd.read_csv('../data/final_dataset.csv')
 
 final_df['ff_cap_llava'] = -1
 final_df['ff_cap_instructblip_flant'] = -1
@@ -28,4 +28,4 @@ for index, row in final_df.iterrows():
     final_df['ff_neg_cap_instructblip_flant'].at[index] = neg_caption_temp['instructblip_flant']
     final_df['ff_neg_cap_clip_flant'].at[index] = neg_caption_temp['clip_flant']
 
-final_df.to_csv('complete_df.csv',index=False)
+final_df.to_csv('../data/complete_df.csv',index=False)

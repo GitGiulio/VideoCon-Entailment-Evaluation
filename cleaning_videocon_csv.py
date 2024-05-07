@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-videocon_llm_entailment_path = 'videocon_llm_entailment.csv'  # (videopath,source,caption,neg_caption,youtube_key,split,misalignment)
+videocon_llm_entailment_path = 'data/videocon_llm_entailment.csv'  # (videopath,source,caption,neg_caption,youtube_key,split,misalignment)
 
 videocon_llm_entailment = pd.read_csv(videocon_llm_entailment_path)
 
@@ -14,7 +14,7 @@ videocon_llm_entailment = videocon_llm_entailment[
 for index, row in videocon_llm_entailment.iterrows():
     videopathtemp = row['videopath']
     videocon_llm_entailment.loc[index, 'videopath'] = videopathtemp.replace('/', '_')[0:len(videopathtemp)-4]
-videocon_llm_entailment.to_csv('my_new_dataset.csv', index=False)
+videocon_llm_entailment.to_csv('data/my_new_dataset.csv', index=False)
 
 
 """ My brutal way of reading the csv file without pandas

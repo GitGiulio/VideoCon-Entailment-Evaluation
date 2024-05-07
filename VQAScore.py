@@ -43,7 +43,7 @@ for root, dirs, files in os.walk(path, topdown=False):
                 else:
                     print('QUALCOSA DI INASPETTATO')
 
-dataframe = pd.read_csv('final_dataset.csv')
+dataframe = pd.read_csv('data/final_dataset.csv')
 
 dataframe['alignment(ff-caption)'] = -1
 dataframe['alignment(ff-neg_cap)'] = -1

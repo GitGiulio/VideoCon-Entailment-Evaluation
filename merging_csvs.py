@@ -1,18 +1,18 @@
 import pandas as pd
 
-dataset = pd.read_csv('my_new_dataset.csv')
+dataset = pd.read_csv('data/my_new_dataset.csv')
 
 csv_path = {
-    'conditioned': {'r1': 'synthetic_video_entailment_results/final_videocon_s001_conditioned_scores.csv',
-                    'r2': 'synthetic_video_entailment_results/final_videocon_s002_conditioned_scores.csv',
-                    'r3': 'synthetic_video_entailment_results/final_videocon_s003_conditioned_scores.csv',
-                    'r4': 'synthetic_video_entailment_results/final_videocon_s004_conditioned_scores.csv',
-                    'r5': 'synthetic_video_entailment_results/final_videocon_s005_conditioned_scores.csv'},
-    'unconditioned': {'r1': 'synthetic_video_entailment_results/final_videocon_s001_unconditioned_scores.csv',
-                      'r2': 'synthetic_video_entailment_results/final_videocon_s002_unconditioned_scores.csv',
-                      'r3': 'synthetic_video_entailment_results/final_videocon_s003_unconditioned_scores.csv',
-                      'r4': 'synthetic_video_entailment_results/final_videocon_s004_unconditioned_scores.csv',
-                      'r5': 'synthetic_video_entailment_results/final_videocon_s005_unconditioned_scores.csv'}
+    'conditioned': {'r1': 'data/synthetic_video_entailment_results/final_videocon_s001_conditioned_scores.csv',
+                    'r2': 'data/synthetic_video_entailment_results/final_videocon_s002_conditioned_scores.csv',
+                    'r3': 'data/synthetic_video_entailment_results/final_videocon_s003_conditioned_scores.csv',
+                    'r4': 'data/synthetic_video_entailment_results/final_videocon_s004_conditioned_scores.csv',
+                    'r5': 'data/synthetic_video_entailment_results/final_videocon_s005_conditioned_scores.csv'},
+    'unconditioned': {'r1': 'data/synthetic_video_entailment_results/final_videocon_s001_unconditioned_scores.csv',
+                      'r2': 'data/synthetic_video_entailment_results/final_videocon_s002_unconditioned_scores.csv',
+                      'r3': 'data/synthetic_video_entailment_results/final_videocon_s003_unconditioned_scores.csv',
+                      'r4': 'data/synthetic_video_entailment_results/final_videocon_s004_unconditioned_scores.csv',
+                      'r5': 'data/synthetic_video_entailment_results/final_videocon_s005_unconditioned_scores.csv'}
 }
 
 csv_scores = {
@@ -50,4 +50,4 @@ for set in csv_scores:
                 dataset[f'{set} round{j} entailment'].at[index] = -1
 
 
-dataset.to_csv('final_dataset.csv', index=False)
+dataset.to_csv('data/final_dataset.csv', index=False)

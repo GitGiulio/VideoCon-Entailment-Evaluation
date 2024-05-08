@@ -67,7 +67,7 @@ csv_path = {
     }
 }
 
-csv_videocon_scores = {
+csv_scores = {
     'conditioned': {
         'videocon_synth': [
             pd.read_csv(csv_path['conditioned']['videocon_synth']['r1']),
@@ -80,7 +80,25 @@ csv_videocon_scores = {
             pd.read_csv(csv_path['conditioned']['videocon_real']['r2']),
             pd.read_csv(csv_path['conditioned']['videocon_real']['r3']),
             pd.read_csv(csv_path['conditioned']['videocon_real']['r4']),
-            pd.read_csv(csv_path['conditioned']['videocon_real']['r5'])]
+            pd.read_csv(csv_path['conditioned']['videocon_real']['r5'])],
+        'clip_flant': [
+            pd.read_csv(csv_path['conditioned']['clip_flant']['r1']),
+            pd.read_csv(csv_path['conditioned']['clip_flant']['r2']),
+            pd.read_csv(csv_path['conditioned']['clip_flant']['r3']),
+            pd.read_csv(csv_path['conditioned']['clip_flant']['r4']),
+            pd.read_csv(csv_path['conditioned']['clip_flant']['r5'])],
+        'instructblip_flant': [
+            pd.read_csv(csv_path['conditioned']['instructblip_flant']['r1']),
+            pd.read_csv(csv_path['conditioned']['instructblip_flant']['r2']),
+            pd.read_csv(csv_path['conditioned']['instructblip_flant']['r3']),
+            pd.read_csv(csv_path['conditioned']['instructblip_flant']['r4']),
+            pd.read_csv(csv_path['conditioned']['instructblip_flant']['r5'])],
+        'llava': [
+            pd.read_csv(csv_path['conditioned']['llava']['r1']),
+            pd.read_csv(csv_path['conditioned']['llava']['r2']),
+            pd.read_csv(csv_path['conditioned']['llava']['r3']),
+            pd.read_csv(csv_path['conditioned']['llava']['r4']),
+            pd.read_csv(csv_path['conditioned']['llava']['r5'])]
     },
     'unconditioned': {
         'videocon_synth': [
@@ -94,19 +112,38 @@ csv_videocon_scores = {
             pd.read_csv(csv_path['unconditioned']['videocon_real']['r2']),
             pd.read_csv(csv_path['unconditioned']['videocon_real']['r3']),
             pd.read_csv(csv_path['unconditioned']['videocon_real']['r4']),
-            pd.read_csv(csv_path['unconditioned']['videocon_real']['r5'])]
+            pd.read_csv(csv_path['unconditioned']['videocon_real']['r5'])],
+        'clip_flant': [
+            pd.read_csv(csv_path['unconditioned']['clip_flant']['r1']),
+            pd.read_csv(csv_path['unconditioned']['clip_flant']['r2']),
+            pd.read_csv(csv_path['unconditioned']['clip_flant']['r3']),
+            pd.read_csv(csv_path['unconditioned']['clip_flant']['r4']),
+            pd.read_csv(csv_path['unconditioned']['clip_flant']['r5'])],
+        'instructblip_flant': [
+            pd.read_csv(csv_path['unconditioned']['instructblip_flant']['r1']),
+            pd.read_csv(csv_path['unconditioned']['instructblip_flant']['r2']),
+            pd.read_csv(csv_path['unconditioned']['instructblip_flant']['r3']),
+            pd.read_csv(csv_path['unconditioned']['instructblip_flant']['r4']),
+            pd.read_csv(csv_path['unconditioned']['instructblip_flant']['r5'])],
+        'llava': [
+            pd.read_csv(csv_path['unconditioned']['llava']['r1']),
+            pd.read_csv(csv_path['unconditioned']['llava']['r2']),
+            pd.read_csv(csv_path['unconditioned']['llava']['r3']),
+            pd.read_csv(csv_path['unconditioned']['llava']['r4']),
+            pd.read_csv(csv_path['unconditioned']['llava']['r5'])]
     }
 }
 
-for set in csv_videocon_scores:
-    for type in csv_videocon_scores[set]:
+for type in csv_scores:
+    for set in csv_scores[type]:
         i = 0
-        for round in csv_videocon_scores[set][type]:
+        for round in csv_scores[type][set]:
             i += 1
             for index, row in round.iterrows():
                 pos = row['videopath'].find('highres_')
                 videopath_temp = row['videopath']
                 round.loc[index,'videopath'] = videopath_temp[pos+8:len(videopath_temp)-10]
-                conversation_temp = row['text']
-                round.loc[index, 'text'] = conversation_temp[222:len(conversation_temp)-7]
-            round.to_csv(csv_path[set][type][f'r{i}'], index=False)
+                if set == 'videocon_synth' or set == 'videocon_real':
+                    conversation_temp = row['text']
+                    round.loc[index, 'text'] = conversation_temp[222:len(conversation_temp)-7]
+            round.to_csv(csv_path[type][set][f'r{i}'], index=False)

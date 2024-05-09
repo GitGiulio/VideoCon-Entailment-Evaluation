@@ -231,10 +231,15 @@ dataset[f'llava real unconditioned r2 ent'] = 0
 dataset[f'llava real unconditioned r3 ent'] = 0
 dataset[f'llava real unconditioned r4 ent'] = 0
 dataset[f'llava real unconditioned r5 ent'] = 0
+
+print(dataset.shape)
+
+
 for type in csv_scores:
     for set in csv_scores[type]:
         j = 0
         for round in csv_scores[type][set]:
+            print(f"{type} {set}")
             j += 1
             for index,row in dataset.iterrows():
                 if set == 'videocon_synth':
@@ -271,4 +276,9 @@ for type in csv_scores:
                         print(f'real {real_caption_entail}')
                         dataset[f'{set} real {type} r{j} ent'].at[index] = -1
 
-dataset.to_csv('data/final_dataset.csv', index=False)
+print(dataset.shape)
+
+
+dataset.to_csv('final_dataset.csv', index=False)
+
+print(dataset.shape)

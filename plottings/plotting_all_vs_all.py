@@ -29,7 +29,6 @@ for ff_set in ff_sets:
                                 plt.xlabel(f'Round {i+1} {video_set} {video_type} entailment')
                                 plt.ylabel(ff_set)
                                 plt.savefig(f'../figures/Round{i+1}_{video_set}_{video_type}_vs_{ff_set}_.png')
+# 720 grafici molto coerenti fra loro e tutti abbastanza deprimenti :(
 
-print(statistics_df['entailments_mean'].std())
-
-statistics_df.to_csv('../data/statistics_df.csv')
+statistics_df.to_csv('../data/df.csv')

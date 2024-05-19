@@ -134,20 +134,6 @@ let currentEntryIndex = 0;
             displayCurrentVideo(data, currentEntryIndex);
         }
 
-        function extractCaption(conversation) {
-            if (conversation) {
-                const pattern = /Does this frame entail the description: "(.*?)"\?/;
-                const match = conversation.match(pattern);
-                if (match) {
-                    return match[1]; // Extract the captured group
-                } else {
-                    return null;
-                }
-            } else {
-                return null; // Handle case where conversation is undefined
-            }
-        }
-
         // Main function
         async function main() {
             const response = await fetch('../data/complete_df.csv');
@@ -180,55 +166,5 @@ let currentEntryIndex = 0;
             });
         }
 
-        // Function to process a caption and fetch its video paths
-        async function processCaption(caption, videosData) {
-            try {
-                const videopathsMap = new Map(); // Use a Set to store unique videopaths
-                for (let i = 1; i <= 5; i++) {
-                    for (const condition of ["conditioned", "unconditioned"]) {
-                        const dataset = await fetchData(`data/final_videocon_s00${i}_${condition}_synth-synth_scores.csv`);
-                        if (!dataset) {
-                            throw new Error(`Failed to fetch data for ${caption}`);
-                        }
-                        const parsedData = parseCSVWithoutHeader(dataset).map(item => ({
-                            ...item,
-                            caption: extractCaption(item[1]) // Make sure extractCaption is defined
-                        }));
-                        const filteredData = parsedData.filter(vp => vp.caption === caption);
-
-                        filteredData.forEach(vp => {
-                            videopath = vp[0];
-                            videopath = videopath.replace('/leonardo_scratch/fast/IscrB_FANDANGO/', '/leonardo_scratch/fast/IscrC_UTUVLM/');
-                            videopath = videopath.replace('/leonardo_scratch/large/userexternal/lzanella/', '/leonardo_scratch/fast/IscrC_UTUVLM/');
-                            if (videopathsMap.has(videopath)) {
-                                videopathsMap.get(videopath).push(["videocon", vp[2]]);
-                            } else {
-                                videopathsMap.set(videopath, [["videocon", vp[2]]]);
-                            }
-                        });
-                    }
-
-                    for (const model of ["clip-flant5-xxl", "instructblip-flant5-xxl", "llava-v1.5-13b"]) {
-                        const vpData = await fetchData(`data/s00${i}_${model}_sample_4_frame.csv`);
-                        if (!vpData) {
-                            throw new Error(`Failed to fetch data for ${caption}`);
-                        }
-                        const parsedVPData = parseCSV(vpData);
-                        const filteredVPData = parsedVPData.filter(vp => vp.text === caption);
-                        filteredVPData.forEach(vp => {
-                            if (videopathsMap.has(vp.videopath)) {
-                                videopathsMap.get(vp.videopath).push([model, vp.entailment]);
-                            } else {
-                                videopathsMap.set(vp.videopath, [[model, vp.entailment]]);
-                            }
-                        });
-                    }
-                }
-                // Push caption and its videopaths to videosData array
-                videosData.push({ caption: caption, videopaths: [...videopathsMap] });
-            } catch (error) {
-                console.error('Error processing caption:', error);
-            }
-        }
 
         main();

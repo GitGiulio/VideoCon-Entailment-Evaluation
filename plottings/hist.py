@@ -19,9 +19,14 @@ video_sets = ['videocon_synth', 'videocon_real',
 
 come_fare = 'videocon_synth conditioned r1 ent'
 
-data = 'ff_entail_diff_clip_flant'
+data1 = 'clip_flant real unconditioned r1 ent'
+data2 = 'clip_flant real conditioned r1 ent'
 
-plt.hist(df[data],bins=100,color='pink')
-plt.title(data)
+# Unconditioned::=  REAL = #75fa85    |  SYNTH = #f58b45   |  DIFF = pink
+# Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
 
-plt.show()
+
+plt.hist(df[data1]-df[data2],bins=100,color='#2ad0f5')
+plt.title('clip_flant real diff r1 (unconditioned-conditioned)')
+
+plt.savefig('plots/histograms/clip_flant_real_diff_r1.png')

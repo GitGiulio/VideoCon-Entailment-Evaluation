@@ -25,9 +25,12 @@ for coso in ['clip_flant', 'instructblip_flant','llava']:
     for video_type in ['conditioned', 'unconditioned']:
         for doso in ['DIFF', 'REAL','SYNTH']:
 
+            ylim = 0
+
             ff_set = ''
             color = 'pink'
             if doso == 'DIFF':
+                ylim = -1
                 ff_set = f'ff_entail_diff_{coso}'
                 if video_type == 'conditioned':
                     color = 'magenta'
@@ -46,33 +49,56 @@ for coso in ['clip_flant', 'instructblip_flant','llava']:
                 elif video_type == 'unconditioned':
                     color = '#f58b45'
 
+            plt.rc('font', size=16)
 
             fig, axs = plt.subplots(3, 4,figsize=(20,15))
 
-            fig.suptitle(f'{coso} vs ff_{coso}_{doso}') # for BOX
+            fig.suptitle(f'{coso} vs ff_{coso}_{doso}')
 
-            axs[0,0].scatter(df[f'{coso} real {video_type} r{1} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[0,0].set_ylim([0, 1])
-            axs[0,1].scatter(df[f'{coso} real {video_type} r{2} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[0,1].set_ylim([0, 1])
-            axs[0,2].scatter(df[f'{coso} real {video_type} r{4} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[0,2].set_ylim([0, 1])
-            axs[0,3].scatter(df[f'{coso} real {video_type} r{5} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[0,3].set_ylim([0, 1])
+            axs[0,0].scatter(df[f'{coso} real {video_type} r{1} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[0,0].set_ylim([ylim, 1])
+            axs[0,0].set_xlim([0, 1])
+            plt.setp(axs[0,0], ylabel='VIDEO REAL')
+            axs[0,1].scatter(df[f'{coso} real {video_type} r{2} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[0,1].set_ylim([ylim, 1])
+            axs[0,1].set_xlim([0, 1])
+            axs[0,2].scatter(df[f'{coso} real {video_type} r{4} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[0,2].set_ylim([ylim, 1])
+            axs[0,2].set_xlim([0, 1])
+            axs[0,3].scatter(df[f'{coso} real {video_type} r{5} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[0,3].set_ylim([ylim, 1])
+            axs[0,3].set_xlim([0, 1])
 
-            axs[1,0].scatter(df[f'{coso} synth {video_type} r{1} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[1,0].set_ylim([0, 1])
-            axs[1,1].scatter(df[f'{coso} synth {video_type} r{2} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[1,1].set_ylim([0, 1])
-            axs[1,2].scatter(df[f'{coso} synth {video_type} r{4} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[1,2].set_ylim([0, 1])
-            axs[1,3].scatter(df[f'{coso} synth {video_type} r{5} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[1,3].set_ylim([0, 1])
+            axs[1,0].scatter(df[f'{coso} synth {video_type} r{1} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[1,0].set_ylim([ylim, 1])
+            axs[1,0].set_xlim([0, 1])
+            plt.setp(axs[1,0], ylabel='VIDEO SYNTH')
+            axs[1,1].scatter(df[f'{coso} synth {video_type} r{2} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[1,1].set_ylim([ylim, 1])
+            axs[1,1].set_xlim([0, 1])
+            axs[1,2].scatter(df[f'{coso} synth {video_type} r{4} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[1,2].set_ylim([ylim, 1])
+            axs[1,2].set_xlim([0, 1])
+            axs[1,3].scatter(df[f'{coso} synth {video_type} r{5} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[1,3].set_ylim([ylim, 1])
+            axs[1,3].set_xlim([0, 1])
 
-            axs[2,0].scatter(df[f'{coso} synth {video_type} r{1} ent'] - df[f'clip_flant real {video_type} r{1} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[2,1].scatter(df[f'{coso} synth {video_type} r{2} ent'] - df[f'clip_flant real {video_type} r{2} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[2,2].scatter(df[f'{coso} synth {video_type} r{4} ent'] - df[f'clip_flant real {video_type} r{4} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
-            axs[2,3].scatter(df[f'{coso} synth {video_type} r{5} ent'] - df[f'clip_flant real {video_type} r{5} ent'],df[ff_set],c='pink',s=0.7,alpha=0.7)
+            axs[2,0].scatter(df[f'{coso} synth {video_type} r{1} ent'] - df[f'clip_flant real {video_type} r{1} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[2,0].set_ylim([ylim, 1])
+            axs[2,0].set_xlim([-1, 1])
+            plt.setp(axs[2,0], xlabel='R1', ylabel='VIDEO DIFFERENCE (SYNTH-REAL)')
+            axs[2,1].scatter(df[f'{coso} synth {video_type} r{2} ent'] - df[f'clip_flant real {video_type} r{2} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[2,1].set_ylim([ylim, 1])
+            axs[2,1].set_xlim([-1, 1])
+            plt.setp(axs[2,1], xlabel='R2')
+            axs[2,2].scatter(df[f'{coso} synth {video_type} r{4} ent'] - df[f'clip_flant real {video_type} r{4} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[2,2].set_ylim([ylim, 1])
+            axs[2,2].set_xlim([-1, 1])
+            plt.setp(axs[2,2], xlabel='R4')
+            axs[2,3].scatter(df[f'{coso} synth {video_type} r{5} ent'] - df[f'clip_flant real {video_type} r{5} ent'],df[ff_set],c=color,s=0.7,alpha=0.7)
+            axs[2,3].set_ylim([ylim, 1])
+            axs[2,3].set_xlim([-1, 1])
+            plt.setp(axs[2,3], xlabel='R5')
 
 
-            plt.savefig(f'plots/{coso}/{video_type}/{doso}.png')
+            plt.savefig(f'plots/{coso}/{video_type}/{doso}.png',dpi=300)

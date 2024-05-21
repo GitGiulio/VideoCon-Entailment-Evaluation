@@ -14,7 +14,7 @@ smaller_flant5_score = t2v_metrics.VQAScore(model='clip-flant5-xl')  # usa quest
 # hpsv2_score = t2v_metrics.CLIPScore(model='hpsv2')
 # image_reward_score = t2v_metrics.ITMScore(model='image-reward-v1')
 
-path = 'videocon'
+path = 'data/videocon'
 
 first_frames_dictionary = {}
 

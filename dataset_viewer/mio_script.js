@@ -140,8 +140,6 @@ let currentEntryIndex = 0;
             const data = await response.text();
             let parsedData = parseCSV(data);
 
-            //parsedData = parsedData.filter(item => item.split === 'train' && (item.misalignment === 'action' || item.misalignment === 'flip'));
-            //let uniqueCaptions = [...new Set(parsedData.map(item => item.neg_caption))];
 
             // Initialize videosData array
             let videosData = [];
@@ -156,15 +154,22 @@ let currentEntryIndex = 0;
             const nextButton = document.getElementById('next-button');
             nextButton.addEventListener('click', async () => {
                 let videosData = [];
-                // If there are more captions left, process the next one
-                if (uniqueCaptions.length > 0) {
-                    const nextCaption = uniqueCaptions.shift(); // Remove and return the next caption
-                    await processCaption(nextCaption, videosData);
+                if (parsedData.length > 0) {
+                    const nextRow = parsedData.shift(); // Remove and return the next caption
+                    await processCaption(nextRow, videosData);
                     // Display the next set of videos
                     displayCurrentVideo(videosData, currentEntryIndex);
                 }
             });
         }
 
+        // Function to process a caption and fetch its video paths
+        async function processRow(row, framesData) {
+            try {
+                const videopathsMap = new Map(); // Use a Set to store unique videopaths
+            } catch (error) {
+                console.error('Error processing caption:', error);
+            }
+        }
 
         main();

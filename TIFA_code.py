@@ -9,7 +9,7 @@ pipeline = get_llama2_pipeline("tifa-benchmark/llama2_tifa_question_generation")
 unifiedqa_model = UnifiedQAModel("allenai/unifiedqa-v2-t5-large-1363200")
 vqa_model = VQAModel("mplug-large")
 
-path = 'videocon'
+path = 'data/videocon'
 
 first_frames_dictionary = {}
 

@@ -20,6 +20,32 @@ video_sets = ['videocon_synth', 'videocon_real',
 # Unconditioned::=  REAL = #75fa85    |  SYNTH = #f58b45   |  DIFF = pink
 # Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
 
+X = ['ff_cap_clip_flant']
+Y1 = ['clip_flant synth conditioned r1 ent']
+Y2 = ['clip_flant real conditioned r1 ent']
+TITLES = ['first frame REAL vs video entailment difference (SYNTH-REAL) conditioned']
+XLABELS = ['entailment first frame to real caption clip-flant']
+YLABELS = ['entailment difference video (real_cap-synth_cap)']
+MODELS = ['clip_flant']
+COLORS = ['magenta']
+XLIMS = [[0,1]]
+YLIMS = [[0,1]]
+FILENAMES = ['1','2']
+
+for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
+    size = 1.0
+    transparency = 1.0
+
+    plt.title(title)
+
+    plt.scatter(df[x], df[y2] - df[y1], c=color, s=size, alpha=transparency)
+    # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.) #TODO capire come funziona bene
+    plt.xlabel(xlable)
+    plt.ylabel(ylable)
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+
+    plt.savefig(f'plots/{model}/unique_clear/{filename}.png', dpi=300)
 
 x = 'ff_cap_clip_flant'
 y1 = 'clip_flant synth conditioned r1 ent'

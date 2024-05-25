@@ -118,8 +118,11 @@ for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TI
     transparency = 0.6
 
     plt.title(title,fontsize=11)
+    if y2 == '0':
+        plt.scatter(df[x], df[y1], c=color, s=size, alpha=transparency)
+    else:
+        plt.scatter(df[x], df[y1] - df[y2], c=color, s=size, alpha=transparency)
 
-    plt.scatter(df[x], df[y1] - df[y2], c=color, s=size, alpha=transparency)
     # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.) #TODO capire come funziona bene
     plt.xlabel(xlable,fontsize=9)
     plt.ylabel(ylable,fontsize=9)

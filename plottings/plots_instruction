@@ -15,3 +15,6 @@ ff_neg_cap_clip_flant|clip_flant real unconditioned r1 ent|clip_flant synth unco
 ff_entail_diff_clip_flant|clip_flant synth unconditioned r1 ent|clip_flant synth conditioned r1 ent|first frame ent DIFF vs video ent DIFF (unconditioned-conditioned) synth|ent diff first frame clip-flant|video entailment difference|clip_flant|#07fa85|-1,1|-1,1|fd(r-s)_vd(u-c)s
 ff_entail_diff_instructblip_flant|instructblip_flant synth unconditioned r1 ent|instructblip_flant synth conditioned r1 ent|first frame ent DIFF vs video ent DIFF (unconditioned-conditioned) synth|ent diff first frame instructblip-flant|video entailment difference|instructblip_flant|#07fa85|-1,1|-1,1|fd(r-s)_vd(u-c)s
 ff_entail_diff_llava|llava synth unconditioned r1 ent|llava synth conditioned r1 ent|first frame ent DIFF vs video ent DIFF (unconditioned-conditioned) synth|ent diff first frame llava|video entailment difference|llava|#07fa85|-1,1|-1,1|fd(r-s)_vd(u-c)s
+ff_entail_diff_clip_flant|clip_flant synth conditioned r1 ent|0|TITOLO|xlab|video entailment difference|clip_flant|#077a85|-1,1|0,1|fd(r-s)_vcs
+ff_entail_diff_instructblip_flant|instructblip_flant synth conditioned r1 ent|0|TITOLO|xlab|video entailment difference|instructblip_flant|#077a85|-1,1|0,1|fd(r-s)_vcs
+ff_entail_diff_llava|llava synth conditioned r1 ent|0|TITOLO|xlab|video entailment difference|llava|#077a85|-1,1|0,1|fd(r-s)_vcs

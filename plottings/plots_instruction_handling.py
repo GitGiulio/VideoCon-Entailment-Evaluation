@@ -12,7 +12,7 @@ MODELS = ['instructblip_flant','clip_flant','llava']
 COLORS = ['#07fa85','#07fa85','#07fa85']
 XLIMS = [[-1,1],[-1,1],[-1,1]]
 YLIMS = [[-1,1],[-1,1],[-1,1]]
-FILENAMES = ['21_fd(r-s)_vd(u-c)r','22_fd(r-s)_vd(u-c)r','23_fd(r-s)_vd(u-c)r']  # n = 24
+FILENAMES = ['21_fd(r-s)_vd(u-c)r','22_fd(r-s)_vd(u-c)r','23_fd(r-s)_vd(u-c)r']  # n = 26
 
 
 """ FILENAMES:

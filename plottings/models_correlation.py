@@ -23,7 +23,7 @@ video_sets = ['videocon_synth', 'videocon_real',
 size = 0.6
 transparency = 0.3
 
-ds = df.sort_values('instructblip_flant real conditioned r1 ent',ascending=True)
+ds = df.sort_values('videocon_real conditioned r1 ent',ascending=True)
 
 ds.reset_index(drop = True, inplace = True)
 
@@ -35,6 +35,6 @@ plt.scatter(ds.index.values, ds['llava real conditioned r1 ent'],c='y',s=size,al
 
 plt.tight_layout(pad=2.0)
 
-plt.savefig(f'plots/models_correlations/v_r_c.png', dpi=300)
+plt.savefig(f'plots/models_correlations/v_r_c_2.png', dpi=300)
 plt.clf()
 

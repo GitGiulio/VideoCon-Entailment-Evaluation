@@ -7,12 +7,29 @@ plt.style.use('dark_background')
 
 df = pd.read_csv('../data/complete_df.csv')
 
-df['ff_entail_diff_llava'] = df['ff_cap_llava'] - df['ff_neg_cap_llava']
-df['ff_entail_diff_clip_flant'] = df['ff_cap_clip_flant'] - df['ff_neg_cap_clip_flant']
-df['ff_entail_diff_instructblip_flant'] = df['ff_cap_instructblip_flant'] - df['ff_neg_cap_instructblip_flant']
+# df['ff_entail_diff_llava'] = df['ff_cap_llava'] - df['ff_neg_cap_llava']
+# df['ff_entail_diff_clip_flant'] = df['ff_cap_clip_flant'] - df['ff_neg_cap_clip_flant']
+# df['ff_entail_diff_instructblip_flant'] = df['ff_cap_instructblip_flant'] - df['ff_neg_cap_instructblip_flant']
 
 # Unconditioned::=  REAL = #75fa85    |  SYNTH = #f58b45   |  DIFF = pink
 # Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
+
+df['ff_cap_entail_mean'] = (df['ff_cap_llava'] + df['ff_cap_clip_flant'] + df['ff_cap_instructblip_flant']) / 3
+df['ff_neg_cap_entail_mean'] = (df['ff_neg_cap_llava'] + df['ff_neg_cap_clip_flant'] + df['ff_neg_cap_instructblip_flant']) / 3
+
+df['ff_entail_diff_mean'] = df['ff_cap_entail_mean'] - df['ff_neg_cap_entail_mean']
+
+df['video conditioned real entail mean'] = 0
+df['video conditioned synth entail mean'] = 0
+df['video unconditioned real entail mean'] = 0
+df['video unconditioned synth entail mean'] = 0
+
+for round in [1,2,4,5]:
+    for model in ['clip_flant ', 'instructblip_flant ', 'llava ']:
+        df['video conditioned real entail mean'] = df['video conditioned real entail mean'] + df[f'{model}real conditioned r{round} ent']
+        df['video conditioned synth entail mean'] = df['video conditioned synth entail mean'] + df[f'{model}synth conditioned r{round} ent']
+        df['video unconditioned real entail mean'] = df['video unconditioned real entail mean'] + df[f'{model}real unconditioned r{round} ent']
+        df['video unconditioned synth entail mean'] = df['video unconditioned synth entail mean'] + df[f'{model}synth unconditioned r{round} ent']
 
 inf = open('plots_instruction', 'r')
 
@@ -60,12 +77,16 @@ for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TI
 
     plt.xlabel(xlable,fontsize=9)
     plt.ylabel(ylable,fontsize=9)
-    plt.xlim(xlim)
-    plt.ylim(ylim)
+    if model != 'models_mean':
+        plt.xlim(xlim)
+        plt.ylim(ylim)
     plt.tight_layout(pad=2.0)
 
     plt.savefig(f'plots/{model}/unique_clear/{filename}.png', dpi=300)
     plt.clf()
+
+    if model == 'models_mean':
+        continue
 
     fig, ax = plt.subplots(1, 4, figsize=(20, 5))
 

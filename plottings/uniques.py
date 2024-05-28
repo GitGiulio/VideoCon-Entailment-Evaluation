@@ -66,42 +66,38 @@ for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TI
 
     plt.savefig(f'plots/{model}/unique_clear/{filename}.png', dpi=300)
     plt.clf()
-    matplotlib.pyplot.close()
 
-for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
+    fig, ax = plt.subplots(1, 4, figsize=(20, 5))
 
-    fig, ax = plt.subplots(1, 4,figsize=(20,5))
-    size = 0.9
-    transparency = 0.6
-
-    fig.suptitle(title,fontsize=11)
+    fig.suptitle(title, fontsize=11)
 
     for r in range(4):
         if r > 1:
-            plt.setp(ax[r], title=f'Round {r+2}')
+            plt.setp(ax[r], title=f'Round {r + 2}')
 
-            x = re.sub('r[1-6]', f'r{str(r+2)}', x)
-            y1 = re.sub('r[1-6]', f'r{str(r+2)}', y1)
+            x = re.sub('r[1-6]', f'r{str(r + 2)}', x)
+            y1 = re.sub('r[1-6]', f'r{str(r + 2)}', y1)
         else:
             plt.setp(ax[r], title=f'Round {r + 1}')
 
-            x = re.sub('r[1-6]', f'r{str(r+1)}', x)
-            y1 = re.sub('r[1-6]', f'r{str(r+1)}', y1)
+            x = re.sub('r[1-6]', f'r{str(r + 1)}', x)
+            y1 = re.sub('r[1-6]', f'r{str(r + 1)}', y1)
         if y2 == '0':
             ax[r].scatter(df[x], df[y1], c=color, s=size, alpha=transparency)
         else:
             if r > 1:
-                y2 = re.sub('r[1-6]', f'r{str(r+2)}', y2)
+                y2 = re.sub('r[1-6]', f'r{str(r + 2)}', y2)
             else:
-                y2 = re.sub('r[1-6]', f'r{str(r+1)}', y2)
+                y2 = re.sub('r[1-6]', f'r{str(r + 1)}', y2)
             ax[r].scatter(df[x], df[y1] - df[y2], c=color, s=size, alpha=transparency)
 
-        ax[r].set_xlabel(xlable,fontsize=9)
-        ax[r].set_ylabel(ylable,fontsize=9)
+        ax[r].set_xlabel(xlable, fontsize=9)
+        ax[r].set_ylabel(ylable, fontsize=9)
         ax[r].set_xlim(xlim)
         ax[r].set_ylim(ylim)
         fig.set_tight_layout(tight=True)
 
     plt.savefig(f'plots/{model}/multiround_clear/{filename}.png', dpi=300)
     plt.clf()
+
     matplotlib.pyplot.close()

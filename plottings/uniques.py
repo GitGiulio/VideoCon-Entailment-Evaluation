@@ -58,16 +58,15 @@ for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TI
     else:
         plt.scatter(df[x], df[y1] - df[y2], c=color, s=size, alpha=transparency)
 
-    # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.) #TODO capire come funziona bene
     plt.xlabel(xlable,fontsize=9)
     plt.ylabel(ylable,fontsize=9)
     plt.xlim(xlim)
     plt.ylim(ylim)
     plt.tight_layout(pad=2.0)
-    #plt.figtext(0.5, 0.01, 'tesatasdaa', wrap=True, horizontalalignment='center', fontsize=12) #TODO capire come funziona bene
 
     plt.savefig(f'plots/{model}/unique_clear/{filename}.png', dpi=300)
     plt.clf()
+    matplotlib.pyplot.close()
 
 for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
 

@@ -24,12 +24,37 @@ df['video conditioned synth entail mean'] = 0
 df['video unconditioned real entail mean'] = 0
 df['video unconditioned synth entail mean'] = 0
 
+df['video conditioned real entail mean_wv'] = 0
+df['video conditioned synth entail mean_wv'] = 0
+df['video unconditioned real entail mean_wv'] = 0
+df['video unconditioned synth entail mean_wv'] = 0
+
+counter_wv = 0
+counter = 0
+
 for round in [1,2,4,5]:
-    for model in ['clip_flant ', 'instructblip_flant ', 'llava ']:
+    for model in ['videocon_','clip_flant ', 'instructblip_flant ', 'llava ']:
+        counter = counter + 1
+        if model != 'videocon_':
+            counter_wv = counter_wv + 1
+            df['video conditioned real entail mean_wv'] = df['video conditioned real entail mean_wv'] + df[f'{model}real conditioned r{round} ent']
+            df['video conditioned synth entail mean_wv'] = df['video conditioned synth entail mean_wv'] + df[f'{model}synth conditioned r{round} ent']
+            df['video unconditioned real entail mean_wv'] = df['video unconditioned real entail mean_wv'] + df[f'{model}real unconditioned r{round} ent']
+            df['video unconditioned synth entail mean_wv'] = df['video unconditioned synth entail mean_wv'] + df[f'{model}synth unconditioned r{round} ent']
         df['video conditioned real entail mean'] = df['video conditioned real entail mean'] + df[f'{model}real conditioned r{round} ent']
         df['video conditioned synth entail mean'] = df['video conditioned synth entail mean'] + df[f'{model}synth conditioned r{round} ent']
         df['video unconditioned real entail mean'] = df['video unconditioned real entail mean'] + df[f'{model}real unconditioned r{round} ent']
         df['video unconditioned synth entail mean'] = df['video unconditioned synth entail mean'] + df[f'{model}synth unconditioned r{round} ent']
+
+df['video conditioned real entail mean'] = df['video conditioned real entail mean'] / counter
+df['video conditioned synth entail mean'] = df['video conditioned synth entail mean'] / counter
+df['video unconditioned real entail mean'] = df['video unconditioned real entail mean'] / counter
+df['video unconditioned synth entail mean'] = df['video unconditioned synth entail mean'] / counter
+
+df['video conditioned real entail mean_wv'] /= counter_wv
+df['video conditioned synth entail mean_wv'] /= counter_wv
+df['video unconditioned real entail mean_wv'] /= counter_wv
+df['video unconditioned synth entail mean_wv'] /= counter_wv
 
 inf = open('plots_instruction', 'r')
 
@@ -77,15 +102,14 @@ for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TI
 
     plt.xlabel(xlable,fontsize=9)
     plt.ylabel(ylable,fontsize=9)
-    if model != 'models_mean':
-        plt.xlim(xlim)
-        plt.ylim(ylim)
+    plt.xlim(xlim)
+    plt.ylim(ylim)
     plt.tight_layout(pad=2.0)
 
     plt.savefig(f'plots/{model}/unique_clear/{filename}.png', dpi=300)
     plt.clf()
 
-    if model == 'models_mean':
+    if model == 'models_mean' or model == 'mean_without_videocon':
         continue
 
     fig, ax = plt.subplots(1, 4, figsize=(20, 5))

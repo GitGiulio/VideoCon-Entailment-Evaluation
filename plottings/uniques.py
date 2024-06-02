@@ -6,13 +6,10 @@ import re
 plt.style.use('dark_background')
 
 df = pd.read_csv('../data/complete_df.csv')
-
-# df['ff_entail_diff_llava'] = df['ff_cap_llava'] - df['ff_neg_cap_llava']
-# df['ff_entail_diff_clip_flant'] = df['ff_cap_clip_flant'] - df['ff_neg_cap_clip_flant']
-# df['ff_entail_diff_instructblip_flant'] = df['ff_cap_instructblip_flant'] - df['ff_neg_cap_instructblip_flant']
-
-# Unconditioned::=  REAL = #75fa85    |  SYNTH = #f58b45   |  DIFF = pink
-# Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
+""" # ho salvato il DF con queste modifiche apportate, quindi queste righe non è più necessario eseguirle
+df['ff_entail_diff_llava'] = df['ff_cap_llava'] - df['ff_neg_cap_llava']
+df['ff_entail_diff_clip_flant'] = df['ff_cap_clip_flant'] - df['ff_neg_cap_clip_flant']
+df['ff_entail_diff_instructblip_flant'] = df['ff_cap_instructblip_flant'] - df['ff_neg_cap_instructblip_flant']
 
 df['ff_cap_entail_mean'] = (df['ff_cap_llava'] + df['ff_cap_clip_flant'] + df['ff_cap_instructblip_flant']) / 3
 df['ff_neg_cap_entail_mean'] = (df['ff_neg_cap_llava'] + df['ff_neg_cap_clip_flant'] + df['ff_neg_cap_instructblip_flant']) / 3
@@ -55,6 +52,7 @@ df['video conditioned real entail mean_wv'] /= counter_wv
 df['video conditioned synth entail mean_wv'] /= counter_wv
 df['video unconditioned real entail mean_wv'] /= counter_wv
 df['video unconditioned synth entail mean_wv'] /= counter_wv
+"""
 
 inf = open('plots_instruction', 'r')
 
@@ -88,6 +86,10 @@ for line in lines:
     XLIMS.append([int(xlims_t[0]),int(xlims_t[1])])
     YLIMS.append([int(ylims_t[0]),int(ylims_t[1])])
     FILENAMES.append(splitted_line[10])
+
+# Unconditioned::=  REAL = #75fa85    |  SYNTH = #f58b45   |  DIFF = pink
+# Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
+
 
 for x,y1,y2,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y1,Y2,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
 

@@ -2,7 +2,7 @@
 
 X = ['ff_entail_diff_instructblip_flant','ff_entail_diff_clip_flant','ff_entail_diff_llava']
 Y1 = ['instructblip_flant real unconditioned r1 ent','clip_flant real unconditioned r1 ent','llava real unconditioned r1 ent']
-Y2 = ['instructblip_flant real conditioned r1 ent','clip_flant real conditioned r1 ent','llava real conditioned r1 ent']
+Y2 = ['instructblip_flant real conditioned r1 ent','clip_flant(Vc_1,R)','llava real conditioned r1 ent']
 TITLES = ['DIFF(instructblip(F,R),instructblip(F,S)) vs DIFF(instructblip(Vu,R),instructblip(Vc,R))',
           'DIFF(clip_flant(F,R),clip_flant(F,S)) vs DIFF(clip_flant(Vu,R),clip_flant(Vc,R))',
           'DIFF(llava(F,R),llava(F,S)) vs DIFF(llava(Vu,R),llava(Vc,R))']

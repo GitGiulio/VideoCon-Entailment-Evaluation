@@ -9,16 +9,16 @@ plt.style.use('dark_background')
 
 df = pd.read_csv('../data/complete_df.csv')
 """
-df = df.rename(columns={"ff_cap_entail_clip_flant": "clip_flant(F,R)",
-                   "ff_cap_entail_instructblip": "instructblip(F,R)",
-                   "ff_cap_entail_llava": "llava(F,R)",
+df = df.rename(columns={"ff_cap_clip_flant": "clip_flant(F,R)",
+                   "ff_cap_instructblip_flant": "instructblip(F,R)",
+                   "ff_cap_llava": "llava(F,R)",
                    "ff_cap_entail_mean": "mean_wv(F,R)",
-                   "ff_neg_cap_entail_clip_flant": "clip_flant(F,S)",
-                   "ff_neg_cap_entail_instructblip": "instructblip(F,S)",
-                   "ff_neg_cap_entail_llava": "llava(F,S)",
+                   "ff_neg_cap_clip_flant": "clip_flant(F,S)",
+                   "ff_neg_cap_instructblip_flant": "instructblip(F,S)",
+                   "ff_neg_cap_llava": "llava(F,S)",
                    "ff_neg_cap_entail_mean": "mean_wv(F,S)",
                    "ff_entail_diff_clip_flant": "D(clip_flant(F,R),clip_flant(F,S))",
-                   "ff_entail_diff_instructblip": "D(instructblip(F,R),instructblip(F,S))",
+                   "ff_entail_diff_instructblip_flant": "D(instructblip(F,R),instructblip(F,S))",
                    "ff_entail_diff_llava": "D(llava(F,R),llava(F,S))",
                    "ff_entail_diff_mean": "D(mean_wv(F,R),mean_wv(F,S))",
                    })
@@ -48,13 +48,13 @@ for type in ['conditioned','unconditioned']:
                                    f"video {type} {caption} entail mean": f"mean(V{new_type},{new_caption})",
                                    f"videocon_{caption} {type} r{r} ent": f"videocon(V{new_type}_{r},{new_caption})",
                                    f"clip_flant {caption} {type} r{r} ent": f"clip_flant(V{new_type}_{r},{new_caption})",
-                                   f"instructblip_flant {caption} {type} r{r} ent": f"instructblip_flant(V{new_type}_{r},{new_caption})",
+                                   f"instructblip_flant {caption} {type} r{r} ent": f"instructblip(V{new_type}_{r},{new_caption})",
                                    f"llava {caption} {type} r{r} ent": f"llava(V{new_type}_{r},{new_caption})",
                                    })
             else:
                 df = df.rename(columns={f"videocon_{caption} {type} r{r} ent": f"videocon(V{new_type}_{r},{new_caption})",
                                    f"clip_flant {caption} {type} r{r} ent": f"clip_flant(V{new_type}_{r},{new_caption})",
-                                   f"instructblip_flant {caption} {type} r{r} ent": f"instructblip_flant(V{new_type}_{r},{new_caption})",
+                                   f"instructblip_flant {caption} {type} r{r} ent": f"instructblip(V{new_type}_{r},{new_caption})",
                                    f"llava {caption} {type} r{r} ent": f"llava(V{new_type}_{r},{new_caption})",
                                    })
 

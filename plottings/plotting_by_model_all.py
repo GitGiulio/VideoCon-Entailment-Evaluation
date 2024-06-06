@@ -10,7 +10,7 @@ df = pd.read_csv('../data/complete_df.csv')
 # Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
 
 
-for model in ['clip_flant', 'instructblip_flant', 'llava']:
+for model in ['clip_flant', 'instructblip', 'llava']:
     for video_type in ['c', 'u']:
         for data in ['DIFF', 'REAL', 'SYNTH']:
 
@@ -21,21 +21,21 @@ for model in ['clip_flant', 'instructblip_flant', 'llava']:
             if data == 'DIFF':
                 ylim = -1
                 ff_set = f'D({model}(F,R),{model}(F,S))'
-                if video_type == 'conditioned':
+                if video_type == 'c':
                     color = 'magenta'
-                elif video_type == 'unconditioned':
+                elif video_type == 'u':
                     color = 'pink'
             elif data == 'REAL':
                 ff_set = f'{model}(F,R)'
-                if video_type == 'conditioned':
+                if video_type == 'c':
                     color = '#2af542'
-                elif video_type == 'unconditioned':
+                elif video_type == 'u':
                     color = '#75fa85'
             elif data == 'SYNTH':
                 ff_set = f'{model}(F,S)'
-                if video_type == 'conditioned':
+                if video_type == 'c':
                     color = '#e84c31'
-                elif video_type == 'unconditioned':
+                elif video_type == 'u':
                     color = '#f58b45'
 
             plt.rc('font', size=16)
@@ -89,5 +89,13 @@ for model in ['clip_flant', 'instructblip_flant', 'llava']:
             axs[2,3].set_xlim([-1, 1])
             plt.setp(axs[2,3], xlabel='R5')
 
+            a = 'difference'
 
-            plt.savefig(f'plots/{model}/{video_type}/{data}.png', dpi=300)
+            if video_type == 'c':
+                a = 'conditioned'
+            elif video_type == 'u':
+                a = 'unconditioned'
+            if model == 'instructblip':
+                plt.savefig(f'plots/{model}_flant/{a}/{data}.png', dpi=300)
+            else:
+                plt.savefig(f'plots/{model}/{a}/{data}.png', dpi=300)

@@ -1,6 +1,6 @@
-clip_flant(F,R)|D(clip_flant(Vc_1,R),clip_flant(Vc_1,S))|clip_flant(F,R) VS DIFF(clip_flant(Vc,R),clip_flant(Vc,S))|clip-flant(F,R)|D(clip_flant(Vc,R),clip_flant(Vc,S))|clip_flant|green|0,1|0,1|1_fr_vcd(r-s)|
+clip_flant(F,R)|D(clip_flant(Vc_1,R),clip_flant(Vc_1,S))|clip_flant(F,R) VS DIFF(clip_flant(Vc,R),clip_flant(Vc,S))|clip_flant(F,R)|D(clip_flant(Vc,R),clip_flant(Vc,S))|clip_flant|green|0,1|0,1|1_fr_vcd(r-s)|
 clip_flant(F,S)|D(clip_flant(Vc_1,R),clip_flant(Vc_1,S))|clip_flant(F,S) vs DIFF(clip_flant(Vc,R),clip_flant(Vc,S))|clip_flant(F,S)|D(clip_flant(Vc,R),clip_flant(Vc,S))|clip_flant|red|0,1|0,1|2_fs_vcd(r-s)|
-D(clip_flant(F,R),clip_flant(F,S))|D(clip-flant(Vc_1,R),clip-flant(Vc_1,S))|DIFF(clip-flant(F,R),clip-flant(F,S)) vs DIFF(clip-flant(Vc,R),clip-flant(Vc,S))|D(clip-flant(F,R),clip-flant(F,S))|D(clip-flant(Vc,R),clip-flant(Vc,S))|clip_flant|magenta|-1,1|-1,1|3_fd(r-s)_vcd(r-s)|
+D(clip_flant(F,R),clip_flant(F,S))|D(clip_flant(Vc_1,R),clip_flant(Vc_1,S))|DIFF(clip_flant(F,R),clip_flant(F,S)) vs DIFF(clip_flant(Vc,R),clip_flant(Vc,S))|D(clip_flant(F,R),clip_flant(F,S))|D(clip_flant(Vc,R),clip_flant(Vc,S))|clip_flant|magenta|-1,1|-1,1|3_fd(r-s)_vcd(r-s)|
 llava(F,R)|D(llava(Vc_1,R),llava(Vc_1,S))|llava(F,R) vs DIFF(llava(Vc,R),llava(Vc,S))|llava(F,R)|D(llava(Vc,R),llava(Vc,S))|llava|green|0,1|0,1|1_fr_vcd(r-s)|
 llava(F,S)|D(llava(Vc_1,R),llava(Vc_1,S))|llava(F,S) vs DIFF(llava(Vc,R),llava(Vc,S))|llava(F,S)|D(llava(Vc,R),llava(Vc,S))|llava|red|0,1|0,1|2_fs_vcd(r-s)|
 D(llava(F,R),llava(F,S))|D(llava(Vc_1,R),llava(Vc_1,S))|DIFF(llava(F,R),llava(F,S)) vs DIFF(llava(Vc,R),llava(Vc,S))|D(llava(F,R),llava(F,S))|D(llava(Vc,R),llava(Vc,S))|llava|magenta|-1,1|-1,1|3_fd(r-s)_vcd(r-s)|

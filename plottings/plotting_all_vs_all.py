@@ -21,6 +21,7 @@ for ff_model in ff_models:
                                 plt.xlabel(f'{ff_model}(F,{f_caption})')
                                 plt.ylabel(f'{video_model}(V{video_type}_{r},{v_caption})')
                                 plt.savefig(f'../figures/{video_model}(V{video_type}_{r},{v_caption})_vs_{ff_model}(F,{f_caption}).png')
-# 720 grafici molto coerenti fra loro e tutti abbastanza deprimenti :(
+                                plt.clf()
+# 800 grafici molto coerenti fra loro e tutti abbastanza deprimenti :(
 
 statistics_df.to_csv('../data/df.csv')

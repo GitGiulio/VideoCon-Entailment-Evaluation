@@ -2,8 +2,9 @@ import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
+import scienceplots
 
-plt.style.use('dark_background')
+plt.style.use(['science', 'ieee','no-latex'])
 
 df = pd.read_csv('../data/complete_df.csv')
 """ # ho salvato il DF con queste modifiche apportate, quindi queste righe non è più necessario eseguirle
@@ -104,20 +105,17 @@ for line in lines:
     YLIMS.append([int(ylims_t[0]),int(ylims_t[1])])
     FILENAMES.append(splitted_line[9])
 
-# Unconditioned::=  REAL = #75fa85    |  SYNTH = #f58b45   |  DIFF = pink
-# Conditioned::=  REAL = #2af542    |  SYNTH = #e84c31   |  DIFF = magenta
-
 
 for x,y,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
 
     size = 0.9
     transparency = 0.6
 
-    plt.title(title,fontsize=11)
-    plt.scatter(df[x], df[y], c=color, s=size, alpha=transparency)
+    plt.title(title,fontsize=9)
+    plt.scatter(df[x], df[y], s=size, alpha=transparency)
 
-    plt.xlabel(xlable,fontsize=9)
-    plt.ylabel(ylable,fontsize=9)
+    plt.xlabel(xlable,fontsize=7)
+    plt.ylabel(ylable,fontsize=7)
     plt.xlim(xlim)
     plt.ylim(ylim)
     plt.tight_layout(pad=2.0)

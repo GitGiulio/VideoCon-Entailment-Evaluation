@@ -1,6 +1,5 @@
-import matplotlib
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 from numpy import cov
 from scipy.stats import pearsonr
 from scipy.stats import spearmanr
@@ -74,16 +73,23 @@ Y = ['D(mean_wv(Vc,R),mean_wv(Vc,S))','D(mean_wv(Vc,R),mean_wv(Vc,S))','D(mean_w
      'mean_wv(Vc,S)','mean_wv(Vc,R)','D(mean_wv(Vu,R),mean_wv(Vc,R))',
      'D(mean_wv(Vu,S),mean_wv(Vc,S))','D(mean_wv(Vu,R),mean_wv(Vc,R))']
 
+Covariance = []
+Pearsonr = []
+Spearmanr = []
+
 for x, y in zip(X, Y):
     print(f'{x}  |  {y}')
 
     covariance = cov(df[x], df[y])
+    Covariance.append(covariance[0][1])
     print(f'covariance = {covariance[0][1]}')
 
     pcc, _ = pearsonr(df[x], df[y])
+    Pearsonr.append(pcc)
     print('Pearsons correlation: %.13f' % pcc)
 
     scc, _ = spearmanr(df[x], df[y])
+    Spearmanr.append(scc)
     print('Spearmans correlation: %.13f\n' % scc)
 
 # df.to_csv('C:\\Users\giuli\PycharmProjects\VideoCon-Entailment-Evaluation\data\complete_df.csv')

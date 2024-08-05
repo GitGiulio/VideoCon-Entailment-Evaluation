@@ -1,19 +1,6 @@
 import os
 import pandas as pd
 
-import t2v_metrics
-
-# clip_flant5_score = t2v_metrics.VQAScore(model='clip-flant5-xxl') # our recommended scoring model
-smaller_flant5_score = t2v_metrics.VQAScore(model='clip-flant5-xl')  # usa questo se crasha
-# smaller_llava_score = t2v_metrics.VQAScore(model='llava-v1.5-7b') # alternativa piccola
-# llava_score = t2v_metrics.VQAScore(model='llava-v1.5-13b')
-# instructblip_score = t2v_metrics.VQAScore(model='instructblip-flant5-xxl')
-# clip_score = t2v_metrics.CLIPScore(model='openai:ViT-L-14-336')
-# blip_itm_score = t2v_metrics.ITMScore(model='blip2-itm')
-# pick_score = t2v_metrics.CLIPScore(model='pickscore-v1')
-# hpsv2_score = t2v_metrics.CLIPScore(model='hpsv2')
-# image_reward_score = t2v_metrics.ITMScore(model='image-reward-v1')
-
 path = 'data/videocon'
 
 first_frames_dictionary = {}
@@ -49,19 +36,38 @@ dataframe['alignment(ff-caption)'] = -1
 dataframe['alignment(ff-neg_cap)'] = -1
 dataframe['alignment_difference'] = -1
 
+import t2v_metrics
+
+clip_flant5_score = t2v_metrics.VQAScore(model='clip-flant5-xxl')
+llava_score = t2v_metrics.VQAScore(model='llava-v1.5-13b')
+instructblip_score = t2v_metrics.VQAScore(model='instructblip-flant5-xxl')
+
 for index, row in dataframe.iterrows():
     if first_frames_dictionary[row['videopath']] != {}:
 
         img_path = first_frames_dictionary[row['videopath']]['image']
 
-        images = [img_path]
+        images = [img_path] #
         texts = [row['caption'], row['neg_caption']]
-        score = smaller_flant5_score(images=images, texts=texts)
 
-        dataframe['alignment(ff-caption)'].at[index] = score[0][0].cpu().numpy()
-        dataframe['alignment(ff-neg_cap)'].at[index] = score[0][1].cpu().numpy()
-        dataframe['alignment_difference'].at[index] = score[0][0].cpu().numpy() - score[0][1].cpu().numpy()
+        clip_results = clip_flant5_score(images=images, texts=texts)
+        llava_results = llava_score(images=images, texts=texts)
+        instructblip_results = instructblip_score(images=images, texts=texts)
+
+        # I save the values obtained by the model in the pandas dataframe
+        dataframe['clip_flant(ff-caption)'].at[index] = clip_results[0][0].cpu().numpy()
+        dataframe['clip_flant(ff-neg_cap)'].at[index] = clip_results[0][1].cpu().numpy()
+        dataframe['clip_flant_difference'].at[index] = clip_results[0][0].cpu().numpy() - clip_results[0][1].cpu().numpy()
+
+        dataframe['llava(ff-caption)'].at[index] = clip_results[0][0].cpu().numpy()
+        dataframe['llava(ff-neg_cap)'].at[index] = clip_results[0][1].cpu().numpy()
+        dataframe['llava_difference'].at[index] = clip_results[0][0].cpu().numpy() - clip_results[0][1].cpu().numpy()
+
+        dataframe['instructblip(ff-caption)'].at[index] = clip_results[0][0].cpu().numpy()
+        dataframe['instructblip(ff-neg_cap)'].at[index] = clip_results[0][1].cpu().numpy()
+        dataframe['instructblip_difference'].at[index] = clip_results[0][0].cpu().numpy() - clip_results[0][1].cpu().numpy()
+
     else:
-        print('QUALCOSA DI INASPETTATO')
+        print('EXCEPTION')
 
 dataframe.to_csv('results.csv', index=False)

@@ -2,9 +2,7 @@ import os
 import pandas as pd
 import json
 
-from tifascore import get_llama2_pipeline, get_llama2_question_and_answers
-import openai
-from tifascore import get_question_and_answers, filter_question_and_answers, UnifiedQAModel, tifa_score_single, VQAModel
+
 pipeline = get_llama2_pipeline("tifa-benchmark/llama2_tifa_question_generation")
 unifiedqa_model = UnifiedQAModel("allenai/unifiedqa-v2-t5-large-1363200")
 vqa_model = VQAModel("mplug-large")
@@ -46,14 +44,13 @@ dataframe['alignment(ff-caption)'] = -1
 dataframe['alignment(ff-neg_cap)'] = -1
 dataframe['alignment_difference'] = -1
 
+
+from tifascore import get_llama2_pipeline, get_llama2_question_and_answers
+import openai
+from tifascore import get_question_and_answers, filter_question_and_answers, UnifiedQAModel, tifa_score_single, VQAModel
+
 for index, row in dataframe.iterrows():
     if first_frames_dictionary[row['videopath']] != {}:
-        print(f'neg_caption --------------------------')
-        print(first_frames_dictionary[row['videopath']]['neg_caption'])
-        print(row['neg_caption'])
-        print(f'caption --------------------------')
-        print(first_frames_dictionary[row['videopath']]['caption'])
-        print(row['caption'])
 
         llama2_questions_caption = get_llama2_question_and_answers(pipeline, row['caption'])  # generating questions
         llama2_questions_neg_caption = get_llama2_question_and_answers(pipeline, row['neg_caption'])  # generating questions
@@ -77,6 +74,7 @@ for index, row in dataframe.iterrows():
         dataframe['alignment(ff-neg_cap)'].at[index] = result_neg_caption['TIFA score']
         dataframe['alignment_difference'].at[index] = alignment_difference
     else:
-        print('QUALCOSA DI INASPETTATO')
+        print('EXCEPTION')
+        exit(1)
 
 dataframe.to_csv('results.csv', index=False)

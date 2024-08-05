@@ -6,7 +6,6 @@ plt.style.use(['science', 'ieee'])
 
 df = pd.read_csv('../data/complete_df.csv')
 
-
 # ciclo per creare tutti gli istogrammi per i video
 for model in ['llava','clip_flant','instructblip','mean','videocon','mean_wv']:
     for video_type in ['c','u']:
@@ -30,8 +29,8 @@ for model in ['llava','clip_flant','instructblip','mean','videocon','mean_wv']:
                 plt.hist(df[f'{model}(V{video_type},{caption})'],bins=200,color=c)
                 title = f'{model}(V{video_type},{caption})'
             else:
-                plt.hist(df[f'{model}(V{video_type}_1,R)'],bins=200,color=c)
-                title = f'{model}(V{video_type}_1,R)'
+                title = f'{model}(V{video_type}_1,{caption})'
+                plt.hist(df[f'{title}'],bins=200,color=c)
 
             plt.title(title)
 

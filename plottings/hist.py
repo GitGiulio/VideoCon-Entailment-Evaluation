@@ -26,10 +26,12 @@ for model in ['llava','clip_flant','instructblip','mean','videocon','mean_wv']:
                 c = '#7d5f8d'
 
             if model in ['mean','mean_wv']:
+                plt.xlim([0,1])
                 plt.hist(df[f'{model}(V{video_type},{caption})'],bins=200,color=c)
                 title = f'{model}(V{video_type},{caption})'
             else:
                 title = f'{model}(V{video_type}_1,{caption})'
+                plt.xlim([0,1])
                 plt.hist(df[f'{title}'],bins=200,color=c)
 
             plt.title(title)
@@ -51,6 +53,7 @@ for model in ['llava','clip_flant','instructblip','mean_wv']:
         elif model == 'mean_wv':
             c = '#7d5f8d'
 
+        plt.xlim([0, 1])
         plt.hist(df[f'{model}(F,{caption})'], bins=200,color=c)
         title = f'{model}(F,{caption})'
 

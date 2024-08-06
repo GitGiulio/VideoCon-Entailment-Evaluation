@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import re
 import scienceplots
 
-plt.style.use(['science', 'ieee','no-latex'])
+plt.style.use(['science', 'ieee'])
 
 df = pd.read_csv('../data/complete_df.csv')
 """ # ho salvato il DF con queste modifiche apportate, quindi queste righe non è più necessario eseguirle
@@ -106,13 +106,27 @@ for line in lines:
     FILENAMES.append(splitted_line[9])
 
 
-for x,y,title,xlable,ylable,model,color,xlim,ylim,filename in zip(X,Y,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
+for x,y,title,xlable,ylable,model,color1,xlim,ylim,filename in zip(X,Y,TITLES,XLABELS,YLABELS,MODELS,COLORS,XLIMS,YLIMS,FILENAMES):
 
-    size = 0.9
+    if model == 'clip_flant':
+        color = '#f13511'
+    elif model == 'llava':
+        color = '#f79410'
+    elif model == 'instructblip_flant':
+        color = '#0cb14d'
+    elif model == 'videocon':
+        color = '#145d9e'
+    elif model == 'models_mean':
+        color = '#4a4a4a'
+    elif model == 'mean_without_videocon':
+        color = '#7d5f8d'
+    else:
+        color = color1
+    size = 0.05
     transparency = 0.6
 
     plt.title(title,fontsize=9)
-    plt.scatter(df[x], df[y], s=size, alpha=transparency)
+    plt.scatter(df[x], df[y], s=size,c=color,marker='>', alpha=transparency)
 
     plt.xlabel(xlable,fontsize=7)
     plt.ylabel(ylable,fontsize=7)

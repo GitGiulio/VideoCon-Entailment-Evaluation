@@ -1,3 +1,5 @@
+import math
+
 import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -123,7 +125,9 @@ for x,y,title,xlable,ylable,model,color1,xlim,ylim,filename in zip(X,Y,TITLES,XL
     else:
         color = color1
     size = 0.05
-    transparency = 0.6
+    transparency = 0.6  # df[y]
+    # for i in range(len(transparency)):
+    #    transparency[i] = min(abs(transparency[i])+0.1, 1)
 
     plt.title(title,fontsize=9)
     plt.scatter(df[x], df[y], s=size,c=color,marker='>', alpha=transparency)

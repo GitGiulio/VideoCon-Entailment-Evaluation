@@ -58,7 +58,7 @@ D(mean_wv(F,R),mean_wv(F,S))|mean(Vc,R)|DIFF(mean(F,R),mean(F,S)) vs mean(Vc,R)|
 D(mean_wv(F,R),mean_wv(F,S))|D(mean(Vu,R),mean(Vc,R))|DIFF(mean(F,R),mean(F,S)) vs DIFF(mean(Vu,R),mean(Vc,R))|D(mean(F,R),mean(F,S))|D(mean(Vu,R),mean(Vc,R))|models_mean|#07fa85|-1,1|-1,1|9_fd(r-s)_vd(u-c)r|
 mean_wv(F,R)|D(mean(Vu,S),mean(Vc,S))|mean(F,R) vs DIFF(mean(Vu,S),mean(Vc,S))|mean(F,R)|D(mean(Vu,S),mean(Vc,S))|models_mean|#07fa85|0,1|-1,1|10_fr_vd(u-c)s|
 mean_wv(F,R)|D(mean(Vu,R),mean(Vc,R))|mean(F,R) vs DIFF(mean(Vu,R),mean(Vc,R))|mean(F,R)|D(mean(Vu,R),mean(Vc,R))|models_mean|#07fa85|0,1|-1,1|11_fr_vd(u-c)r|
-mean_wv(F,R)|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_wv(F,R) VS DIFF(mean_wv(Vc,R),mean_wv(Vc,S))|mean_wv(F,R)|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_without_videocon|green|0,1|-1,1|1_fr_vcd(r-s)|
+mean_wv(F,R)|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_wv(F,R) VS DIFF(mean_wv(Vc,R),mean_wv(Vc,S))|mean_wv(F,R)|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_without_videocon|green|0,1|0,1|1_fr_vcd(r-s)|
 mean_wv(F,S)|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_wv(F,S) vs DIFF(mean_wv(Vc,R),mean_wv(Vc,S))|mean_wv(F,S)|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_without_videocon|red|0,1|0,1|2_fs_vcd(r-s)|
 D(mean_wv(F,R),mean_wv(F,S))|D(mean_wv(Vc,R),mean_wv(Vc,S))|DIFF(mean_wv(F,R),mean_wv(F,S)) vs DIFF(mean_wv(Vc,R),mean_wv(Vc,S))|D(mean_wv(F,R),mean_wv(F,S))|D(mean_wv(Vc,R),mean_wv(Vc,S))|mean_without_videocon|magenta|-1,1|-1,1|3_fd(r-s)_vcd(r-s)|
 mean_wv(F,R)|D(mean_wv(Vu,R),mean_wv(Vu,S))|mean_wv(F,R) vs DIFF(mean_wv(Vu,R),mean_wv(Vu,S))|mean_wv(F,R)|D(mean_wv(Vu,R),mean_wv(Vu,S))|mean_without_videocon|yellow|0,1|0,1|4_fr_vud(r-s)|

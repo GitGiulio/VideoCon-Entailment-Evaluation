@@ -1,0 +1,30 @@
+mean_wv(F,S)  |  mean_wv(Vc,S)
+covariance = 0.01931959239801696  | Pearsons correlation: 0.7667706758291 | Spearmans correlation: 0.7555311733984
+mean_wv(F,R)  |  mean_wv(Vc,S)
+covariance = 0.015594619862045394 | Pearsons correlation: 0.5773091719006 | Spearmans correlation: 0.5783741140776
+mean_wv(F,S)  |  mean_wv(Vu,R)
+covariance = 0.011990912283635689 | Pearsons correlation: 0.3953528032980 | Spearmans correlation: 0.3800949710164
+mean_wv(F,R)  |  mean_wv(Vu,S)
+covariance = 0.008919514911244703 | Pearsons correlation: 0.3146092298686 | Spearmans correlation: 0.3183623755419
+D(mean_wv(F,R),mean_wv(F,S))  |  D(mean_wv(Vc,R),mean_wv(Vc,S))
+covariance = 0.009555542152687625 | Pearsons correlation: 0.6243708313770 | Spearmans correlation: 0.6668300494998
+mean_wv(F,R)  |  D(mean_wv(Vc,R),mean_wv(Vc,S))
+covariance = 0.006695444953146999 | Pearsons correlation: 0.3108484332703 | Spearmans correlation: 0.3011919214967
+mean_wv(F,S)  |  D(mean_wv(Vc,R),mean_wv(Vc,S))
+covariance = -0.002860097199540627 | Pearsons correlation: -0.1423586638443 | Spearmans correlation: -0.1029134375356
+mean_wv(F,R)  |  D(mean_wv(Vu,R),mean_wv(Vu,S))
+covariance = 0.000528751510631112  | Pearsons correlation: 0.0154835553345  | Spearmans correlation: 0.0480842537612
+mean_wv(F,S)  |  D(mean_wv(Vu,R),mean_wv(Vu,S))
+covariance = 0.003671716638240934  | Pearsons correlation: 0.1152715407972  | Spearmans correlation: 0.0428561322348
+D(mean_wv(F,R),mean_wv(F,S))  |  D(mean_wv(Vu,S),mean_wv(Vc,S))
+covariance = 0.004325291801821516  | Pearsons correlation: 0.2396502333862  | Spearmans correlation: 0.1073985731423
+D(mean_wv(F,R),mean_wv(F,S))  |  mean_wv(Vc,S)
+covariance = -0.0037249725359715683 | Pearsons correlation: -0.1940773144590 | Spearmans correlation: -0.1359063525800
+D(mean_wv(F,R),mean_wv(F,S))  |  mean_wv(Vc,R)
+covariance = 0.005830569616716064   | Pearsons correlation: 0.2855265286818  | Spearmans correlation: 0.3013339945785
+D(mean_wv(F,R),mean_wv(F,S))  |  D(mean_wv(Vu,R),mean_wv(Vc,R))
+covariance = -0.008373215478475938  | Pearsons correlation: -0.4026998711070 | Spearmans correlation: -0.2865786344427
+mean_wv(F,R)  |  D(mean_wv(Vu,S),mean_wv(Vc,S))
+covariance = -0.0066751049508006885 | Pearsons correlation: -0.2627861717592 | Spearmans correlation: -0.2841138673981
+mean_wv(F,R)  |  D(mean_wv(Vu,R),mean_wv(Vc,R))
+covariance = -0.012841798393316577  | Pearsons correlation: -0.4388307338833 | Spearmans correlation: -0.4255036232875

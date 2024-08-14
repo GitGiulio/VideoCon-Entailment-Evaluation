@@ -64,11 +64,13 @@ df['D(mean_wv(Vu,S),mean_wv(Vc,S))'] = df['mean_wv(Vu,S)'] - df['mean_wv(Vc,S)']
 df['D(mean_wv(Vu,R),mean_wv(Vc,R))'] = df['mean_wv(Vu,R)'] - df['mean_wv(Vc,R)']
 """
 
-X = ['D(mean_wv(F,R),mean_wv(F,S))','mean_wv(F,R)','mean_wv(F,S)',
+X = ['mean_wv(F,S)','mean_wv(F,R)','mean_wv(F,S)','mean_wv(F,R)',
+     'D(mean_wv(F,R),mean_wv(F,S))','mean_wv(F,R)','mean_wv(F,S)',
      'mean_wv(F,R)','mean_wv(F,S)','D(mean_wv(F,R),mean_wv(F,S))',
      'D(mean_wv(F,R),mean_wv(F,S))','D(mean_wv(F,R),mean_wv(F,S))','D(mean_wv(F,R),mean_wv(F,S))',
      'mean_wv(F,R)','mean_wv(F,R)']
-Y = ['D(mean_wv(Vc,R),mean_wv(Vc,S))','D(mean_wv(Vc,R),mean_wv(Vc,S))','D(mean_wv(Vc,R),mean_wv(Vc,S))',
+Y = ['mean_wv(Vc,S)','mean_wv(Vc,S)','mean_wv(Vu,R)','mean_wv(Vu,S)',
+    'D(mean_wv(Vc,R),mean_wv(Vc,S))','D(mean_wv(Vc,R),mean_wv(Vc,S))','D(mean_wv(Vc,R),mean_wv(Vc,S))',
      'D(mean_wv(Vu,R),mean_wv(Vu,S))','D(mean_wv(Vu,R),mean_wv(Vu,S))','D(mean_wv(Vu,S),mean_wv(Vc,S))',
      'mean_wv(Vc,S)','mean_wv(Vc,R)','D(mean_wv(Vu,R),mean_wv(Vc,R))',
      'D(mean_wv(Vu,S),mean_wv(Vc,S))','D(mean_wv(Vu,R),mean_wv(Vc,R))']
@@ -77,19 +79,27 @@ Covariance = []
 Pearsonr = []
 Spearmanr = []
 
+ouf = open('relations_quantification.txt', 'w')
+
 for x, y in zip(X, Y):
     print(f'{x}  |  {y}')
+
+    ouf.write(f'{x}  |  {y}\n')
 
     covariance = cov(df[x], df[y])
     Covariance.append(covariance[0][1])
     print(f'covariance = {covariance[0][1]}')
+    ouf.write(f'covariance = {covariance[0][1]} | ')
 
     pcc, _ = pearsonr(df[x], df[y])
     Pearsonr.append(pcc)
     print('Pearsons correlation: %.13f' % pcc)
+    ouf.write('Pearsons correlation: %.13f | ' % pcc)
 
     scc, _ = spearmanr(df[x], df[y])
     Spearmanr.append(scc)
     print('Spearmans correlation: %.13f\n' % scc)
+    ouf.write('Spearmans correlation: %.13f\n' % scc)
 
+ouf.close()
 # df.to_csv('C:\\Users\giuli\PycharmProjects\VideoCon-Entailment-Evaluation\data\complete_df.csv')

@@ -306,7 +306,7 @@ def select_top_ranked_softmax(
     save_top_ranked(result_df, f"{dataset_name}")
 
 
-def select_top_ranked_from_df_hybrid(
+def select_top_ranked_from_df_hybrid(#NON USATA
     df_synth_synth,
     df_synth_real,
     df_synth_synth_owl_con,
@@ -386,7 +386,7 @@ def select_top_ranked_from_df_hybrid(
     save_top_ranked(df_filtered, dataset_name)
 
 
-def select_top_ranked_delta(
+def select_top_ranked_delta(#NON USATA
     df_synth_synth, df_synth_real, df_train, dataset_name, thresholds=[0.5]
 ):
     df_train["original_videopath"] = df_train["videopath"]
@@ -506,7 +506,7 @@ def select_top_ranked_delta(
     save_top_ranked(df_filtered_by_entailment, f"{dataset_name}-by-entailment")
 
 
-def select_top_ranked_delta_only_synth(
+def select_top_ranked_delta_only_synth( #NON USATA
     df_synth_synth, df_synth_real, df_train, dataset_name, thresholds=[0.5]
 ):
     df_train["original_videopath"] = df_train["videopath"]

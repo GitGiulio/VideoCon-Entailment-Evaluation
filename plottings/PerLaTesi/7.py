@@ -41,9 +41,9 @@ plt.xlim([-1,1])
 plt.ylim([-1,1])
 z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 3)
 p = np.poly1d(z)
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), c='#ff0000',marker='.', s=1.5, label='Trend line')
+plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), c='#ff0000',marker='.', s=size, label='Trend line')
 
-plt.legend(['models mean','Trend line'], markerscale=1, ncol=1, bbox_to_anchor=(1, 1))
+plt.legend(['models mean','Trend line'], markerscale=5, ncol=1,loc=3)
 
 plt.savefig(f'plots/P7_uncond-cond_trend.png', dpi=300)
 plt.clf()

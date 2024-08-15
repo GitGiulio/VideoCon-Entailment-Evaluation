@@ -232,14 +232,11 @@ dataset[f'llava real unconditioned r3 ent'] = 0
 dataset[f'llava real unconditioned r4 ent'] = 0
 dataset[f'llava real unconditioned r5 ent'] = 0
 
-print(dataset.shape)
-
 
 for type in csv_scores:
     for set in csv_scores[type]:
         j = 0
         for round in csv_scores[type][set]:
-            print(f"{type} {set}")
             j += 1
             for index,row in dataset.iterrows():
                 if set == 'videocon_synth':
@@ -247,18 +244,12 @@ for type in csv_scores:
                     if len(synth_cap_entail) != 0:
                         dataset[f'{set} {type} r{j} ent'].at[index] = synth_cap_entail[0]
                     else:
-                        print(f'ACHTUNG{index}  set {set}  type {type}  r{j}')
-                        print(f'cap {synth_cap_entail}')
-                        print(f'row {row}')
                         dataset[f'{set} {type} r{j} ent'].at[index] = -1
                 elif set == 'videocon_real':
                     real_cap_entail = round.loc[(round['videopath'] == row.videopath) & (round['text'] == row.caption)]['entailment'].values
                     if len(real_cap_entail) != 0:
                         dataset[f'{set} {type} r{j} ent'].at[index] = real_cap_entail[0]
                     else:
-                        print(f'ACHTUNG{index}  set {set}  type {type}  r{j}')
-                        print(f'cap {real_cap_entail}')
-                        print(f'row {row}')
                         dataset[f'{set} {type} r{j} ent'].at[index] = -1
                 else:
                     synth_caption_entail = round.loc[(round['videopath'] == row.videopath) & (round['text'] == row.neg_caption)]['entailment'].values
@@ -266,19 +257,10 @@ for type in csv_scores:
                     if len(synth_caption_entail) != 0:
                         dataset[f'{set} synth {type} r{j} ent'].at[index] = synth_caption_entail[0]
                     else:
-                        print(f'ACHTUNG{index}  set {set}  type {type}  r{j}')
-                        print(f'synth {synth_caption_entail}')
                         dataset[f'{set} synth {type} r{j} ent'].at[index] = -1
                     if len(real_caption_entail) != 0:
                         dataset[f'{set} real {type} r{j} ent'].at[index] = real_caption_entail[0]
                     else:
-                        print(f'ACHTUNG{index}  set {set}  type {type}  r{j}')
-                        print(f'real {real_caption_entail}')
                         dataset[f'{set} real {type} r{j} ent'].at[index] = -1
 
-print(dataset.shape)
-
-
 dataset.to_csv('final_dataset.csv', index=False)
-
-print(dataset.shape)

@@ -17,8 +17,8 @@ input = pd.read_csv('merged_for_training_paths.csv')
 # in questo devo mettere tutti quelli che ci sono gia in quello originale + tutti i video sintetici condizionati
 
 caption = ""
-SI = "SI"
-NO = "NO"
+SI = "Yes"
+NO = "No"
 si_o_no = NO
 
 for index, row in input.iterrows():

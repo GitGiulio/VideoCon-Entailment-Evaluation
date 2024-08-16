@@ -19,8 +19,8 @@ input = pd.read_csv('merged_for_training_paths.csv')
 HYPERPARAMETER = 0.15
 
 caption = ""
-SI = "SI"
-NO = "NO"
+SI = "Yes"
+NO = "No"
 si_o_no = NO
 
 for index, row in input.iterrows():

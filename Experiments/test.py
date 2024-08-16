@@ -13,11 +13,6 @@ print(c.shape)
 print(d.shape)
 print(e.shape)
 
-print(199456-165752)
-print(33704/2)
-
-print(199456-165752)
-
 cond = 0
 unc = 0
 n_m = 0
@@ -97,3 +92,5 @@ print(f"E cond = {cond}")
 print(f"unc = {unc}")
 print(f"n_m = {n_m}")
 print(cond / (cond + unc))
+
+

@@ -1,8 +1,8 @@
 import pandas as pd
 
-df = pd.read_csv('ilmiocsv.csv')
+df = pd.read_csv('train_llm_mix_entail_feedback.csv')
 
-input = pd.read_csv('input.csv')
+input = pd.read_csv('merged_for_training_paths.csv')
 
 
 # columns = ['videopath','caption','split']
@@ -22,18 +22,20 @@ NO = "NO"
 si_o_no = NO
 
 for index, row in input.iterrows():
-    # prima coppia (V_S_U,T_R)
+    if row['D(mean_wv(F,R),mean_wv(F,S))'] == -2:
+        continue
     caption = row['caption']
     si_o_no = NO
-    df.append({"videopath": f"{videopath_unconditioned}",
-               "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
-               "split": "train"})
+    videopath_unconditioned = row['unconditioned_videopath']
+    df = pd.concat([df, pd.DataFrame([{"videopath": f"{videopath_unconditioned}",
+                                       "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
+                                       "split": "train"}])], ignore_index=True)
 
     # prima coppia (V_S_U,T_S)
-    caption = row['neg_caption']
+    caption = row['text']
     si_o_no = SI
-    df.append({"videopath": f"{videopath_unconditioned}",
-               "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
-               "split": "train"})
+    df = pd.concat([df, pd.DataFrame([{"videopath": f"{videopath_unconditioned}",
+                                       "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
+                                       "split": "train"}])], ignore_index=True)
 
 df.to_csv('all_unconditioned.csv', index=False)

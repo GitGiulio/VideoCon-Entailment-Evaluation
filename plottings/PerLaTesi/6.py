@@ -27,25 +27,31 @@ df[f'D(mean(Vu,R),mean(Vu,S))'] = df[f'mean(Vu,R)'] - df[f'mean(Vu,S)']
 df[f'D(mean(Vu,S),mean(Vc,S))'] = df[f'mean(Vu,S)'] - df[f'mean(Vc,S)']
 df[f'D(mean(Vu,R),mean(Vc,R))'] = df[f'mean(Vu,R)'] - df[f'mean(Vc,R)']
 
-size = 0.6
+size = 1
 transparency = 1
 
 plt.rcParams.update({'font.size': 9})
 fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 
-fig.suptitle('Unconditional and conditional comparison',fontsize=11)
+#fig.suptitle('Unconditional and conditional comparison',fontsize=11)
 
-ax[0].scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], c='#f79410',marker='.', s=size, alpha=transparency)
-ax[0].set_xlabel('models_average(F,$T_R$) - models_average(F,$T_S$)')
-ax[0].set_ylabel('models_average($V_S^C$,$T_R$) - models_average($V_S^C$,$T_S$)')
+ax[0].scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], c='#00D7D7',marker='.', s=size, alpha=transparency)
+ax[0].set_xlabel('models_average($F,T_R$) - models_average($F,T_S$)')
+ax[0].set_ylabel('models_average($V_S^C,T_R$) - models_average($V_S^C,T_S$)')
 ax[0].set_title('Conditioned')
+z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], 1)
+p = np.poly1d(z)
+ax[0].plot(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), "r--",linewidth=0.7, label='Trend line')
 #ax[0].set_xlim(xlim)
 #ax[0].set_ylim(ylim)
 
-ax[1].scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,R),mean_wv(Vu,S))'], c='#145d9e',marker='.', s=size, alpha=transparency)
-ax[1].set_xlabel('models_average(F,$T_R$) - models_average(F,$T_S$)')
-ax[1].set_ylabel('models_average($V_S^U$,$T_R$) - models_average($V_S^U$,$T_S$)')
+ax[1].scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,R),mean_wv(Vu,S))'], c='#f79410',marker='.', s=size, alpha=transparency)
+ax[1].set_xlabel('models_average($F,T_R$) - models_average($F,T_S$)')
+ax[1].set_ylabel('models_average($V_S^U,T_R$) - models_average($V_S^U,T_S$)')
 ax[1].set_title('Unconditioned')
+z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,R),mean_wv(Vu,S))'], 1)
+p = np.poly1d(z)
+ax[1].plot(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), "r--",linewidth=0.7, label='Trend line')
 #ax[1].set_xlim(xlim)
 #ax[1].set_ylim(ylim)
 fig.set_tight_layout(tight=True)

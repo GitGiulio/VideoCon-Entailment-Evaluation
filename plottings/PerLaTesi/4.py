@@ -32,20 +32,20 @@ transparency = 1  # df[y]
 
 plt.rcParams.update({'font.size': 5})
 
-plt.title('Peggioramento relativo dei video condizionati', fontsize=7)
+plt.title('Relative degradation of conditioned videos', fontsize=7)
 
-plt.scatter(df['mean_wv(F,R)'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], c='#7d5f8d',marker='.', s=size, alpha=transparency)
-plt.xlabel('xlable')
-plt.ylabel('ylable')
+plt.scatter(df['mean_wv(F,R)'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], c='#00D7D7',marker='.', s=size, alpha=transparency)
+plt.xlabel('models_average($F,T_R$)')
+plt.ylabel('models_average($V_S^C,T_R$) - models_average($V_S^C,T_S$)')
 plt.xlim([0,1])
 plt.ylim([0,1])
 z = np.polyfit(df['mean_wv(F,R)'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], 1)
 p = np.poly1d(z)
 plt.plot(df['mean_wv(F,R)'], p(df['mean_wv(F,R)'])+0.05, "r--",linewidth=0.7, label='Trend line')
 
-plt.legend(['models mean','Trend line'], markerscale=10, ncol=1, bbox_to_anchor=(1, 1))
+plt.legend(['models average','Trend line'], markerscale=10, ncol=1, bbox_to_anchor=(1, 1))
 
-plt.savefig(f'plots/P4.png', dpi=300)
+plt.savefig(f'plots/P4_cond_video_degrading.png', dpi=300)
 plt.clf()
 
 matplotlib.pyplot.close()

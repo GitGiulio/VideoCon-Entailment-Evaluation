@@ -34,14 +34,14 @@ plt.rcParams.update({'font.size': 5})
 
 plt.title('Unconditioned - conditioned trend', fontsize=7)
 
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#7d5f8d',marker='.', s=size, alpha=transparency)
+plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#00D7D7',marker='.', s=size, alpha=transparency)
 plt.xlabel('models_average(F,$T_R$) - models_average(F,$T_S$)')
 plt.ylabel('models_average($V_S^U$,$T_S$) - models_average($V_S^C$,$T_S$)')
 plt.xlim([-1,1])
 plt.ylim([-1,1])
 z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 3)
 p = np.poly1d(z)
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), c='#ff0000',marker='.', s=size, label='Trend line')
+plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), c='#E70000',marker='.', s=size, label='Trend line')
 
 plt.legend(['models mean','Trend line'], markerscale=5, ncol=1,loc=3)
 

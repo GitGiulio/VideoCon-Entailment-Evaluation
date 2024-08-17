@@ -46,7 +46,7 @@ transparency = 1  # df[y]
 
 plt.rcParams.update({'font.size': 5})
 plt.title('DIFF(mean_wv(F,R),mean_wv(F,S)) vs DIFF(mean_wv(Vc,R),mean_wv(Vc,S))',fontsize=7)
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], s=size,c='#7d5f8d',marker='.', alpha=transparency)
+plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], s=size,c='#00D7D7',marker='.', alpha=transparency)
 
 z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], 1)  # TODO polinomial fit for trends HOOOOOOOO
 p = np.poly1d(z)

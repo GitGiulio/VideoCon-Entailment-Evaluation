@@ -27,7 +27,7 @@ df[f'D(mean(Vu,R),mean(Vu,S))'] = df[f'mean(Vu,R)'] - df[f'mean(Vu,S)']
 df[f'D(mean(Vu,S),mean(Vc,S))'] = df[f'mean(Vu,S)'] - df[f'mean(Vc,S)']
 df[f'D(mean(Vu,R),mean(Vc,R))'] = df[f'mean(Vu,R)'] - df[f'mean(Vc,R)']
 
-size = 0.5
+size = 1
 transparency = 1  # df[y]
 
 fig, ax = plt.subplots(1, 2, figsize=(10, 5))
@@ -35,18 +35,20 @@ plt.rcParams.update({'font.size': 7})
 
 fig.suptitle('Simple conditional generation trends', fontsize=9)
 
-ax[0].scatter(df['mean_wv(F,R)'], df['mean_wv(Vc,R)'], c='#7d5f8d',marker='.', s=size, alpha=transparency)
-ax[0].set_xlabel('models_average(F,R)')
-ax[0].set_ylabel('models_average(Vc,R)')
+ax[0].scatter(df['mean_wv(F,R)'], df['mean_wv(Vc,R)'], c='#00D7D7',marker='.', s=size, alpha=transparency)
+ax[0].set_xlabel('models_average($F,T_R$)')
+ax[0].set_ylabel('models_average($V_S^C,T_R$)')
+ax[0].set_title('Real caption')
 #ax[0].set_xlim(xlim)
 #ax[0].set_ylim(ylim)
 z = np.polyfit(df['mean_wv(F,R)'], df['mean_wv(Vc,R)'], 1)
 p = np.poly1d(z)
 ax[0].plot(df['mean_wv(F,R)'], p(df['mean_wv(F,R)']), "r--",linewidth=0.7, label='Trend line')
 
-ax[1].scatter(df['mean_wv(F,S)'], df['mean_wv(Vc,S)'], c='#7d5f8d',marker='.', s=size, alpha=transparency)
-ax[1].set_xlabel('models_average(F,S)')
-ax[1].set_ylabel('models_average(Vc,S)')
+ax[1].scatter(df['mean_wv(F,S)'], df['mean_wv(Vc,S)'], c='#00D7D7',marker='.', s=size, alpha=transparency)
+ax[1].set_xlabel('models_average($F,T_S$)')
+ax[1].set_ylabel('models_average($V_S^C,T_S$)')
+ax[1].set_title('Synthetic caption')
 #ax[1].set_xlim(xlim)
 #ax[1].set_ylim(ylim)
 z = np.polyfit(df['mean_wv(F,S)'], df['mean_wv(Vc,S)'], 1)
@@ -55,9 +57,9 @@ ax[1].plot(df['mean_wv(F,S)'], p(df['mean_wv(F,S)']), "r--",linewidth=0.7, label
 fig.set_tight_layout(tight=True)
 
 
-plt.legend(['models mean','Trend line'], markerscale=15, ncol=1, bbox_to_anchor=(1, 1))
+plt.legend(['models average','Trend line'], markerscale=8, ncol=1, loc=4)
 
-plt.savefig(f'plots/P3.png', dpi=300)
+plt.savefig(f'plots/P3_basic_relations.png', dpi=300)
 plt.clf()
 
 matplotlib.pyplot.close()

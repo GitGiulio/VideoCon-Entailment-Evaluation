@@ -39,9 +39,14 @@ plt.xlabel('models_average($F,T_R$)')
 plt.ylabel('models_average($V_S^C,T_R$) - models_average($V_S^C,T_S$)')
 plt.xlim([0,1])
 plt.ylim([0,1])
-z = np.polyfit(df['mean_wv(F,R)'], df['D(mean_wv(Vc,R),mean_wv(Vc,S))'], 1)
+a = pd.DataFrame([{'temp x':0,'temp y':0}])
+for index,row in df.iterrows():
+    if row['D(mean_wv(Vc,R),mean_wv(Vc,S))'] > 0:
+        a = pd.concat([a, pd.DataFrame([{'temp x':row['mean_wv(F,R)'],'temp y':row['D(mean_wv(Vc,R),mean_wv(Vc,S))']}])], ignore_index=True)
+
+z = np.polyfit(a['temp x'], a['temp y'], 1)
 p = np.poly1d(z)
-plt.plot(df['mean_wv(F,R)'], p(df['mean_wv(F,R)'])+0.05, "r--",linewidth=0.7, label='Trend line')
+plt.plot(a['temp x'], p(a['temp x']), "r-",linewidth=0.7, label='Trend line')
 
 plt.legend(['models average','Trend line'], markerscale=10, ncol=1, bbox_to_anchor=(1, 1))
 

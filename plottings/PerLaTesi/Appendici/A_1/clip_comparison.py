@@ -48,43 +48,33 @@ transparency = 1
 
 plt.rcParams.update({'font.size': 9})
 
-fig, ax = plt.subplots(1, 3, figsize=(15, 5))
+fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 
-fig.suptitle('Real caption',fontsize=11)
-
-ax[0].scatter(df['llava(F,R)'], df['llava(Vc_mean,R)'], c='#145d9e',marker='.', s=size, alpha=transparency)
-ax[0].set_xlabel('llava($F,T_R$)')
-ax[0].set_ylabel('llava($V_S^C,T_R$)')
-ax[0].set_title('llava')
+fig.suptitle('Clip flant',fontsize=11)
+ax[0].scatter(df['clip_flant(F,R)'], df['clip_flant(Vc_mean,R)'], c='#f79410',marker='.', s=size, alpha=transparency)
+ax[0].set_xlabel('clip_flant($F,T_R$)')
+ax[0].set_ylabel('clip_flant($V_S^C,T_R$)')
+ax[0].set_title('Real caption')
 ax[0].set_xlim([0,1])
 ax[0].set_ylim([0,1])
-z = np.polyfit(df['llava(F,R)'], df['llava(Vc_mean,R)'], 1)
-p = np.poly1d(z)
-ax[0].plot(df['llava(F,R)'], p(df['llava(F,R)']),"r-", label='Trend line')
-
-
-ax[1].scatter(df['clip_flant(F,R)'], df['clip_flant(Vc_mean,R)'], c='#f79410',marker='.', s=size, alpha=transparency)
-ax[1].set_xlabel('clip_flant($F,T_R$)')
-ax[1].set_ylabel('clip_flant($V_S^C,T_R$)')
-ax[1].set_title('clip_flant')
-ax[1].set_xlim([0,1])
-ax[1].set_ylim([0,1])
 z = np.polyfit(df['clip_flant(F,R)'], df['clip_flant(Vc_mean,R)'], 1)
 p = np.poly1d(z)
-ax[1].plot(df['clip_flant(F,R)'], p(df['clip_flant(F,R)']),"r-", label='Trend line')
+ax[0].plot(df['clip_flant(F,R)'], p(df['clip_flant(F,R)']),"r-", label='Trend line')
 
-ax[2].scatter(df['instructblip(F,R)'], df['instructblip(Vc_mean,R)'], c='#0cb14d',marker='.', s=size, alpha=transparency)
-ax[2].set_xlabel('instructblip($F,T_R$)')
-ax[2].set_ylabel('instructblip($V_S^C,T_R$)')
-ax[2].set_title('instructblip')
-ax[2].set_xlim([0,1])
-ax[2].set_ylim([0,1])
-z = np.polyfit(df['instructblip(F,R)'], df['instructblip(Vc_mean,R)'], 1)
+
+ax[1].scatter(df['clip_flant(F,S)'], df['clip_flant(Vc_mean,S)'], c='#f79410',marker='.', s=size, alpha=transparency)
+ax[1].set_xlabel('clip_flant($F,T_S$)')
+ax[1].set_ylabel('clip_flant($V_S^C,T_S$)')
+ax[1].set_title('Synthetic caption')
+ax[1].set_xlim([0,1])
+ax[1].set_ylim([0,1])
+z = np.polyfit(df['clip_flant(F,S)'], df['clip_flant(Vc_mean,S)'], 1)
 p = np.poly1d(z)
-ax[2].plot(df['instructblip(F,R)'], p(df['instructblip(F,R)']),"r-", label='Trend line')
+ax[1].plot(df['clip_flant(F,S)'], p(df['clip_flant(F,S)']),"r-", label='Trend line')
+
 
 fig.set_tight_layout(tight=True)
-plt.savefig(f'A1_TR_comparison.png', dpi=300)
+plt.savefig(f'A1_clip_flant_comparison.png', dpi=300)
 plt.clf()
 
 matplotlib.pyplot.close()

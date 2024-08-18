@@ -27,6 +27,8 @@ df[f'D(mean(Vu,R),mean(Vu,S))'] = df[f'mean(Vu,R)'] - df[f'mean(Vu,S)']
 df[f'D(mean(Vu,S),mean(Vc,S))'] = df[f'mean(Vu,S)'] - df[f'mean(Vc,S)']
 df[f'D(mean(Vu,R),mean(Vc,R))'] = df[f'mean(Vu,R)'] - df[f'mean(Vc,R)']
 
+df.sort_values('D(mean_wv(F,R),mean_wv(F,S))',ascending=True)
+
 size = 0.6
 transparency = 1
 
@@ -34,16 +36,22 @@ plt.rcParams.update({'font.size': 5})
 
 plt.title('Unconditioned - conditioned trend', fontsize=7)
 
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#00D7D7',marker='.', s=size, alpha=transparency)
+plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#00D7D7',marker='.', s=size, alpha=transparency,label='models average')
 plt.xlabel('models_average(F,$T_R$) - models_average(F,$T_S$)')
 plt.ylabel('models_average($V_S^U$,$T_S$) - models_average($V_S^C$,$T_S$)')
 plt.xlim([-1,1])
 plt.ylim([-1,1])
+xs = np.linspace(-1, 1, 10000)
 z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 3)
 p = np.poly1d(z)
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], p(df['D(mean_wv(F,R),mean_wv(F,S))']), c='#E70000',marker='.', s=size, label='Trend line')
+plt.plot(xs, p(xs), 'b--', label='polynomial fitting D=3')
 
-plt.legend(['models mean','Trend line'], markerscale=5, ncol=1,loc=3)
+z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 1)
+p = np.poly1d(z)
+plt.plot(xs, p(xs), 'r-', label='linear regression')
+
+
+plt.legend(markerscale=5, ncol=1,loc=3)
 
 plt.savefig(f'plots/P7_uncond-cond_trend.png', dpi=300)
 plt.clf()

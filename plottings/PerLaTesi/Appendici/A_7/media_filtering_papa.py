@@ -3,7 +3,6 @@ import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
 import scienceplots
-from numpy.lib.user_array import container
 
 plt.style.use(['science', 'scatter'])
 
@@ -99,7 +98,6 @@ for index,row in df.iterrows():
         a = pd.concat([a, pd.DataFrame([{'D(mean_wv(F,R),mean_wv(F,S))':  b1/23,'D(mean_wv(Vu,S),mean_wv(Vc,S))': b2/23}])], ignore_index=True)
 
 
-
 size = 0.6
 transparency = 1
 
@@ -113,27 +111,21 @@ plt.xlabel('models_average(F,$T_R$) - models_average(F,$T_S$)')
 plt.ylabel('models_average($V_S^U$,$T_S$) - models_average($V_S^C$,$T_S$)')
 plt.xlim([-1,1])
 plt.ylim([-1,1])
+
 xs = np.linspace(-1, 1, 10000)
-
-z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 3)
-p = np.poly1d(z)
-plt.plot(xs, p(xs),'r-',linewidth=0.6, label='Trend line')
-
 z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 1)
 p = np.poly1d(z)
-plt.plot(xs, p(xs),'r-',linewidth=1.0, label='linear regression')
+plt.plot(xs, p(xs),'r-',linewidth=0.6, label='linear regression')
 
-z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 3)
+xs = np.linspace(0, 1, 10000)
+z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 2)
 p = np.poly1d(z)
 plt.plot(xs, p(xs),'b-',linewidth=0.6, label='Trend line')
 
-z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 1)
-p = np.poly1d(z)
-plt.plot(xs, p(xs),'b-',linewidth=0.6, label='linear regression')
 
-plt.legend(['models mean','Trend line'], markerscale=5, ncol=1,loc=3)
+
+plt.legend(markerscale=5, ncol=1,loc=3)
 
 plt.savefig(f'P7_cleaned.png', dpi=300)
 plt.clf()
-
 matplotlib.pyplot.close()

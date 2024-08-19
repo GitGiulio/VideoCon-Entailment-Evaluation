@@ -43,60 +43,24 @@ df[f'D(clip_flant(Vu,R),clip_flant(Vu,S))'] = df[f'clip_flant(Vu_mean,R)'] - df[
 df[f'D(clip_flant(Vu,S),clip_flant(Vc,S))'] = df[f'clip_flant(Vu_mean,S)'] - df[f'clip_flant(Vc_mean,S)']
 df[f'D(clip_flant(Vu,R),clip_flant(Vc,R))'] = df[f'clip_flant(Vu_mean,R)'] - df[f'clip_flant(Vc_mean,R)']
 
+def filter(df,val,x,y):
+    a = pd.DataFrame()
+    c = 0
+    df = df.sort_values(x,ascending=True)
+    df = df.reset_index(drop=True)
+    for index,row in df.iterrows():
+        c += 1
+        if c >= val:
+            b1 = 0
+            b2 = 0
+            for i in range(val):
+                b1 += df[x].at[index-i]
+                b2 += df[y].at[index-i]
+            a = pd.concat([a, pd.DataFrame([{x:  b1/val,y: b2/val}])],ignore_index=True)
+    return a
 
-a = pd.DataFrame()
-c = 0
-df = df.sort_values('D(mean_wv(F,R),mean_wv(F,S))',ascending=True)
-df = df.reset_index(drop=True)
-for index,row in df.iterrows():
-    c += 1
-    if c >= 23:
-        b1 = (df['D(mean_wv(F,R),mean_wv(F,S))'].at[index] + df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 1] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 2] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 3] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 4] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 5] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 6] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 7] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 8] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 9] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 10] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 11] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 12] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 13] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 14] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 15] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 16] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 17] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 18] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 19] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 20] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 21] +
-              df['D(mean_wv(F,R),mean_wv(F,S))'].at[index - 22]
-              )
-        b2 = (df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index] + df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 1] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 2] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 3] + df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 4] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 5] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 6] + df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 7] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 8] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 9] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 10] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 11] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 12] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 13] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 14] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 15] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 16] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 17] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 18] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 19] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 20] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 21] +
-              df['D(mean_wv(Vu,S),mean_wv(Vc,S))'].at[index - 22]
-              )
-        a = pd.concat([a, pd.DataFrame([{'D(mean_wv(F,R),mean_wv(F,S))':  b1/23,'D(mean_wv(Vu,S),mean_wv(Vc,S))': b2/23}])], ignore_index=True)
 
+a = filter(df,77,'D(mean_wv(F,R),mean_wv(F,S))','D(mean_wv(Vu,S),mean_wv(Vc,S))')
 
 size = 0.6
 transparency = 1
@@ -124,6 +88,6 @@ plt.plot(xs, p(xs),'b-',linewidth=0.6, label='Trend line')
 
 plt.legend(markerscale=5, ncol=1,loc=3)
 
-plt.savefig('plots/P7_uncond-cond_trend.png', dpi=300)
+plt.savefig('plots/P7_uncond-cond_trend.png', dpi=1000)
 plt.clf()
 matplotlib.pyplot.close()

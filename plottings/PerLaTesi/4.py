@@ -32,59 +32,23 @@ for index,row in df.iterrows():
     if row['D(mean_wv(Vc,R),mean_wv(Vc,S))'] > 0:
         b = pd.concat([b, pd.DataFrame([{'mean_wv(F,R)':row['mean_wv(F,R)'],'D(mean_wv(Vc,R),mean_wv(Vc,S))':row['D(mean_wv(Vc,R),mean_wv(Vc,S))']}])], ignore_index=True)
 
+def filter(df,val,x,y):
+    a = pd.DataFrame()
+    c = 0
+    df = df.sort_values(x,ascending=True)
+    df = df.reset_index(drop=True)
+    for index,row in df.iterrows():
+        c += 1
+        if c >= val:
+            b1 = 0
+            b2 = 0
+            for i in range(val):
+                b1 += df[x].at[index-i]
+                b2 += df[y].at[index-i]
+            a = pd.concat([a, pd.DataFrame([{x:  b1/val,y: b2/val}])],ignore_index=True)
+    return a
 
-a = pd.DataFrame()
-c = 0
-b = b.sort_values('mean_wv(F,R)',ascending=True)
-b = b.reset_index(drop=True)
-for index,row in b.iterrows():
-    c += 1
-    if c >= 23:
-        b1 = (b['mean_wv(F,R)'].at[index] + b['mean_wv(F,R)'].at[index - 1] +
-              b['mean_wv(F,R)'].at[index - 2] +
-              b['mean_wv(F,R)'].at[index - 3] +
-              b['mean_wv(F,R)'].at[index - 4] +
-              b['mean_wv(F,R)'].at[index - 5] +
-              b['mean_wv(F,R)'].at[index - 6] +
-              b['mean_wv(F,R)'].at[index - 7] +
-              b['mean_wv(F,R)'].at[index - 8] +
-              b['mean_wv(F,R)'].at[index - 9] +
-              b['mean_wv(F,R)'].at[index - 10] +
-              b['mean_wv(F,R)'].at[index - 11] +
-              b['mean_wv(F,R)'].at[index - 12] +
-              b['mean_wv(F,R)'].at[index - 13] +
-              b['mean_wv(F,R)'].at[index - 14] +
-              b['mean_wv(F,R)'].at[index - 15] +
-              b['mean_wv(F,R)'].at[index - 16] +
-              b['mean_wv(F,R)'].at[index - 17] +
-              b['mean_wv(F,R)'].at[index - 18] +
-              b['mean_wv(F,R)'].at[index - 19] +
-              b['mean_wv(F,R)'].at[index - 20] +
-              b['mean_wv(F,R)'].at[index - 21] +
-              b['mean_wv(F,R)'].at[index - 22]
-              )
-        b2 = (b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index] + b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 1] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 2] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 3] + b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 4] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 5] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 6] + b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 7] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 8] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 9] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 10] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 11] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 12] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 13] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 14] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 15] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 16] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 17] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 18] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 19] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 20] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 21] +
-              b['D(mean_wv(Vc,R),mean_wv(Vc,S))'].at[index - 22]
-              )
-        a = pd.concat([a, pd.DataFrame([{'mean_wv(F,R)':  b1/23,'D(mean_wv(Vc,R),mean_wv(Vc,S))': b2/23}])], ignore_index=True)
+a = filter(b,23,'mean_wv(F,R)','D(mean_wv(Vc,R),mean_wv(Vc,S))')
 size = 0.3
 transparency = 1  # df[y]
 

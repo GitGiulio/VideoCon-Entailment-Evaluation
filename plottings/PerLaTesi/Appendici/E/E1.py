@@ -43,58 +43,42 @@ def filter(df,val,x,y):
             a = pd.concat([a, pd.DataFrame([{x:  b1/val,y: b2/val}])],ignore_index=True)
     return a
 
-a = filter(df,23,'clip_flant(F,R)','clip_flant(Vc_mean,S)')
-b = filter(df,23,'llava(F,R)','llava(Vc_mean,S)')
-c = filter(df,23,'instructblip(F,R)','instructblip(Vc_mean,S)')
-
+a = filter(df,23,'D(mean_wv(F,R),mean_wv(F,S))','mean_wv(Vc,R)')
+b = filter(df,23,'D(mean_wv(F,R),mean_wv(F,S))','mean_wv(Vc,S)')
 size = 1
-transparency = 1  # df[y]
+transparency = 1
 
-fig, ax = plt.subplots(1, 3, figsize=(15, 5))
+fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 plt.rcParams.update({'font.size': 12})
 
-fig.suptitle('Models comparison', fontsize=15)
+fig.suptitle('The effects of conditional generation seen from the difference of entailments of the frame', fontsize=15)
 
-ax[0].scatter(df['clip_flant(F,R)'], df['clip_flant(Vc_mean,S)'], c='#f79410',marker='.', s=size, alpha=transparency, label='models avereage raw')
-ax[0].scatter(a['clip_flant(F,R)'], a['clip_flant(Vc_mean,S)'], c='#e77410',marker='.', s=size, alpha=transparency, label='filtered data')
-ax[0].set_xlabel('clip_flant($F,T_R$)')
-ax[0].set_ylabel('clip_flant($V_S^C,T_S$)')
-ax[0].set_title('Clip flant')
-ax[0].set_xlim([0,1])
+ax[0].scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['mean_wv(Vc,R)'], c='#7d5f8d',marker='.', s=size, alpha=transparency, label='models avereage raw')
+ax[0].scatter(a['D(mean_wv(F,R),mean_wv(F,S))'], a['mean_wv(Vc,R)'], c='#00D7D7',marker='.', s=size, alpha=transparency, label='filtered data')
+ax[0].set_xlabel('models_average($F,T_R$) - models_average($F,T_S$)')
+ax[0].set_ylabel('models_average($V_S^C,T_R$)')
+ax[0].set_xlim([-1,1])
 ax[0].set_ylim([0,1])
-z = np.polyfit(df['clip_flant(F,R)'], df['clip_flant(Vc_mean,S)'], 1)
+z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['mean_wv(Vc,R)'], 1)
 p = np.poly1d(z)
-xs = np.linspace(0, 1, 10000)
+xs = np.linspace(-1, 1, 10000)
 ax[0].plot(xs, p(xs), "r-",linewidth=0.7, label='linear regression')
-ax[0].legend(markerscale=8, ncol=1, loc=2)
 
-ax[1].scatter(df['llava(F,R)'], df['llava(Vc_mean,S)'], c='#1a6fc4',marker='.', s=size, alpha=transparency, label='models avereage raw')
-ax[1].scatter(b['llava(F,R)'], b['llava(Vc_mean,S)'], c='#0f3fba',marker='.', s=size, alpha=transparency, label='filtered data')
-ax[1].set_xlabel('llava($F,T_R$)')
-ax[1].set_ylabel('llava($V_S^C,T_S$)')
-ax[1].set_title('Llava')
-ax[1].set_xlim([0,1])
+
+ax[1].scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['mean_wv(Vc,S)'], c='#7d5f8d',marker='.', s=size, alpha=transparency, label='models avereage raw')
+ax[1].scatter(b['D(mean_wv(F,R),mean_wv(F,S))'], b['mean_wv(Vc,S)'], c='#00D7D7',marker='.', s=size, alpha=transparency, label='filtered data')
+ax[1].set_xlabel('models_average($F,T_R$) - models_average($F,T_S$)')
+ax[1].set_ylabel('models_average($V_S^C,T_S$)')
+ax[1].set_xlim([-1,1])
 ax[1].set_ylim([0,1])
-z = np.polyfit(df['llava(F,R)'], df['llava(Vc_mean,S)'], 1)
+z = np.polyfit(df['D(mean_wv(F,R),mean_wv(F,S))'], df['mean_wv(Vc,S)'], 1)
 p = np.poly1d(z)
 ax[1].plot(xs, p(xs), "r-",linewidth=0.7, label='linear regression')
-ax[1].legend(markerscale=8, ncol=1, loc=2)
 
-ax[2].scatter(df['instructblip(F,R)'], df['instructblip(Vc_mean,S)'], c='#0cb14d',marker='.', s=size, alpha=transparency, label='models avereage raw')
-ax[2].scatter(c['instructblip(F,R)'], c['instructblip(Vc_mean,S)'], c='#0c811d',marker='.', s=size, alpha=transparency, label='filtered data')
-ax[2].set_xlabel('instructblip($F,T_R$)')
-ax[2].set_ylabel('instructblip($V_S^C,T_S$)')
-ax[2].set_title('Instructblip flant')
-ax[2].set_xlim([0,1])
-ax[2].set_ylim([0,1])
-z = np.polyfit(df['instructblip(F,R)'], df['instructblip(Vc_mean,S)'], 1)
-p = np.poly1d(z)
-ax[2].plot(xs, p(xs), "r-",linewidth=0.7, label='linear regression')
-ax[2].legend(markerscale=8, ncol=1, loc=2)
 
 fig.set_tight_layout(tight=True)
 
-plt.savefig(f'C2_models_comparison.png', dpi=300)
-plt.clf()
+#plt.legend(markerscale=8, ncol=1, loc=4)
 
-matplotlib.pyplot.close()
+plt.savefig(f'E1.png', dpi=300)
+plt.clf()

@@ -6,8 +6,7 @@ import scienceplots
 
 plt.style.use(['science', 'scatter'])
 
-df = pd.read_csv('with_mean.csv')
-
+df = pd.read_csv('../../with_mean.csv')
 
 for round in [1,2,4,5]:
     df[f'D(clip_flant(Vc_{round},R),clip_flant(Vc_{round},S))'] = df[f'clip_flant(Vc_{round},R)'] - df[f'clip_flant(Vc_{round},S)']
@@ -28,21 +27,6 @@ df[f'D(mean(Vu,R),mean(Vu,S))'] = df[f'mean(Vu,R)'] - df[f'mean(Vu,S)']
 df[f'D(mean(Vu,S),mean(Vc,S))'] = df[f'mean(Vu,S)'] - df[f'mean(Vc,S)']
 df[f'D(mean(Vu,R),mean(Vc,R))'] = df[f'mean(Vu,R)'] - df[f'mean(Vc,R)']
 
-df[f'D(llava(Vc,R),llava(Vc,S))'] = df[f'llava(Vc_mean,R)'] - df[f'llava(Vc_mean,S)']
-df[f'D(llava(Vu,R),llava(Vu,S))'] = df[f'llava(Vu_mean,R)'] - df[f'llava(Vu_mean,S)']
-df[f'D(llava(Vu,S),llava(Vc,S))'] = df[f'llava(Vu_mean,S)'] - df[f'llava(Vc_mean,S)']
-df[f'D(llava(Vu,R),llava(Vc,R))'] = df[f'llava(Vu_mean,R)'] - df[f'llava(Vc_mean,R)']
-
-df[f'D(instructblip(Vc,R),instructblip(Vc,S))'] = df[f'instructblip(Vc_mean,R)'] - df[f'instructblip(Vc_mean,S)']
-df[f'D(instructblip(Vu,R),instructblip(Vu,S))'] = df[f'instructblip(Vu_mean,R)'] - df[f'instructblip(Vu_mean,S)']
-df[f'D(instructblip(Vu,S),instructblip(Vc,S))'] = df[f'instructblip(Vu_mean,S)'] - df[f'instructblip(Vc_mean,S)']
-df[f'D(instructblip(Vu,R),instructblip(Vc,R))'] = df[f'instructblip(Vu_mean,R)'] - df[f'instructblip(Vc_mean,R)']
-
-df[f'D(clip_flant(Vc,R),clip_flant(Vc,S))'] = df[f'clip_flant(Vc_mean,R)'] - df[f'clip_flant(Vc_mean,S)']
-df[f'D(clip_flant(Vu,R),clip_flant(Vu,S))'] = df[f'clip_flant(Vu_mean,R)'] - df[f'clip_flant(Vu_mean,S)']
-df[f'D(clip_flant(Vu,S),clip_flant(Vc,S))'] = df[f'clip_flant(Vu_mean,S)'] - df[f'clip_flant(Vc_mean,S)']
-df[f'D(clip_flant(Vu,R),clip_flant(Vc,R))'] = df[f'clip_flant(Vu_mean,R)'] - df[f'clip_flant(Vc_mean,R)']
-
 def filter(df,val,x,y):
     a = pd.DataFrame()
     c = 0
@@ -59,36 +43,29 @@ def filter(df,val,x,y):
             a = pd.concat([a, pd.DataFrame([{x:  b1/val,y: b2/val}])],ignore_index=True)
     return a
 
+a = filter(df,23,'mean_wv(F,R)','mean_wv(Vc,S)')
 
-a = filter(df,77,'D(mean_wv(F,R),mean_wv(F,S))','D(mean_wv(Vu,S),mean_wv(Vc,S))')
-
-size = 0.6
-transparency = 1
+size = 1
+transparency = 1  # df[y]
 
 plt.rcParams.update({'font.size': 5})
 
-plt.title('Unconditioned - conditioned trend', fontsize=7)
+plt.title('Simple conditional generation trends', fontsize=7)
 
-plt.scatter(df['D(mean_wv(F,R),mean_wv(F,S))'], df['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#7d5f8d',marker='.', s=size, alpha=transparency,label='raw data')
-#plt.scatter(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#ffffff',marker='.', s=0.7)
-plt.scatter(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], c='#00D7D7',marker='.', s=size, alpha=transparency,label='filtered')
-plt.xlabel('models_average(F,$T_R$) - models_average(F,$T_S$)')
-plt.ylabel('models_average($V_S^U$,$T_S$) - models_average($V_S^C$,$T_S$)')
-plt.xlim([-1,1])
-plt.ylim([-1,1])
-
-xs = np.linspace(-1, 1, 10000)
-z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 1)
+plt.scatter(df['mean_wv(F,R)'], df['mean_wv(Vc,S)'], c='#7d5f8d',marker='.', s=size, alpha=transparency, label='models avereage raw')
+plt.scatter(a['mean_wv(F,R)'], a['mean_wv(Vc,S)'], c='#00D7D7',marker='.', s=size, alpha=transparency, label='filtered data')
+plt.xlabel('models_average($F,T_R$)')
+plt.ylabel('models_average($V_S^C,T_S$)')
+plt.xlim([0,1])
+plt.ylim([0,1])
+z = np.polyfit(df['mean_wv(F,R)'], df['mean_wv(Vc,S)'], 1)
 p = np.poly1d(z)
-plt.plot(xs, p(xs),'r-',linewidth=0.6, label='linear regression')
-
 xs = np.linspace(0, 1, 10000)
-z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 2)
-p = np.poly1d(z)
-plt.plot(xs, p(xs),'b-',linewidth=0.6, label='Trend line')
+plt.plot(xs, p(xs), "r-",linewidth=0.7, label='linear regression')
 
-plt.legend(markerscale=5, ncol=1,loc=3)
+plt.legend(markerscale=8, ncol=1, loc=4)
 
-plt.savefig('plots/P7_uncond-cond_trend.png', dpi=1000)
+plt.savefig(f'C1_models_average.png', dpi=300)
 plt.clf()
+
 matplotlib.pyplot.close()

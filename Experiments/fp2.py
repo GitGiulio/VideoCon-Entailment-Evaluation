@@ -16,7 +16,7 @@ input = pd.read_csv('merged_for_training_paths.csv')
 
 # in questo devo mettere tutti quelli che ci sono gia in quello originale + tutti i video sintetici condizionati
 
-HYPERPARAMETER = 0.3
+HYPERPARAMETER = 0.0
 
 caption = ""
 SI = "Yes"
@@ -24,9 +24,9 @@ NO = "No"
 si_o_no = NO
 
 for index, row in input.iterrows():
-    if row['D(mean_wv(F,R),mean_wv(F,S))'] == -2:
+    if row['D(clip_flant(F,R),clip_flant(F,S))'] == -2:
         continue
-    if row['D(mean_wv(F,R),mean_wv(F,S))'] > HYPERPARAMETER:
+    if row['D(clip_flant(F,R),clip_flant(F,S))'] > HYPERPARAMETER:
         # prima coppia (V_S_U,T_R)
         caption = row['caption']
         si_o_no = NO
@@ -57,4 +57,4 @@ for index, row in input.iterrows():
                    "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
                    "split": "train"}])], ignore_index=True)
 
-df.to_csv('chosed_by_me_H_0_3.csv', index=False)
+df.to_csv('training_csvs/clip_H_0.csv', index=False)

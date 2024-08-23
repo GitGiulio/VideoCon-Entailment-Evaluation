@@ -1,0 +1,89 @@
+====================
+date_24-08-02_time_18-39-27_videocon_model_lora
+====================
+VideoCon (LLM) Test
+AUC-ROC: 87.66
+VideoCon (Human)
+AUC-ROC: 77.37
+AUC-ROC-Hard: 74.56
+ATP-Hard
+Accuracy: 35.30368763557484
+SSv2-Temporal
+mAP: 12.143428543517686
+SSv2-Events
+mAP: 10.619893253058315
+
+====================
+date_24-08-17_time_17-20-32_videocon_model_lora_all_conditioned
+====================
+VideoCon (LLM) Test
+AUC-ROC: 86.02
+VideoCon (Human)
+AUC-ROC: 75.76
+AUC-ROC-Hard: 73.77
+ATP-Hard
+Accuracy: 35.19522776572668
+SSv2-Temporal
+mAP: 11.187502136108291
+SSv2-Events
+mAP: 6.020237144807176
+
+====================
+date_24-08-17_time_17-20-32_videocon_model_lora_all_unconditioned
+====================
+VideoCon (LLM) Test
+AUC-ROC: 86.44
+VideoCon (Human)
+AUC-ROC: 77.16
+AUC-ROC-Hard: 75.01
+ATP-Hard
+Accuracy: 35.9002169197397
+SSv2-Temporal
+mAP: 13.66318408895795
+SSv2-Events
+mAP: 8.976097955090697
+
+====================
+date_24-08-17_time_17-20-32_videocon_model_lora_chosed_by_me_H_0_15
+====================
+VideoCon (LLM) Test
+AUC-ROC: 86.06
+VideoCon (Human)
+AUC-ROC: 76.40
+AUC-ROC-Hard: 74.08
+ATP-Hard
+Accuracy: 34.544468546637745
+SSv2-Temporal
+mAP: 12.260578744746287
+SSv2-Events
+mAP: 7.531550808407242
+
+====================
+date_24-08-17_time_17-20-32_videocon_model_lora_chosed_by_me_H_0_3
+====================
+VideoCon (LLM) Test
+AUC-ROC: 86.01
+VideoCon (Human)
+AUC-ROC: 76.21
+AUC-ROC-Hard: 74.00
+ATP-Hard
+Accuracy: 34.38177874186551
+SSv2-Temporal
+mAP: 11.387764216318098
+SSv2-Events
+mAP: 6.863924256433779
+
+====================
+date_24-08-17_time_17-20-32_videocon_model_lora_chosed_by_me_H_0
+====================
+VideoCon (LLM) Test
+AUC-ROC: 86.23
+VideoCon (Human)
+AUC-ROC: 76.81
+AUC-ROC-Hard: 74.45
+ATP-Hard
+Accuracy: 34.273318872017356
+SSv2-Temporal
+mAP: 13.113559130611552
+SSv2-Events
+mAP: 8.124332789458013

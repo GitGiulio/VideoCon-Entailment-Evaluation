@@ -1,10 +1,10 @@
 import pandas as pd
 
-a = pd.read_csv('chosed_by_me_H_0.csv')
-b = pd.read_csv('chosed_by_me_H_0_3.csv')
-c = pd.read_csv('chosed_by_me_H_0_15.csv')
-d = pd.read_csv('all_conditioned.csv')
-e = pd.read_csv('all_unconditioned.csv')
+a = pd.read_csv('training_csvs/clip_H_0.csv')
+b = pd.read_csv('training_csvs/llava_H_0.csv')
+c = pd.read_csv('training_csvs/instructblip_H_0.csv')
+d = pd.read_csv('training_csvs/chosed_by_me_H_0.csv')
+e = pd.read_csv('training_csvs/all_unconditioned.csv')
 f = pd.read_csv('train_llm_mix_entail_feedback.csv')
 
 print(a.shape)

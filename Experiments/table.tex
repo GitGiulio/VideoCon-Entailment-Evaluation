@@ -1,0 +1,30 @@
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{b}{>{\columncolor{VideoConBlue}}c|}
+\newcolumntype{g}{>{\columncolor{VideoQAGreen}}c|}
+\newcolumntype{r}{>{\columncolor{RetrievalRed}}c|}
+
+
+\definecolor{VideoConBlue}{RGB}{218,232,252}
+\definecolor{RetrievalRed}{RGB}{248,206,204}
+\definecolor{VideoQAGreen}{RGB}{213,232,212}
+\definecolor{best}{RGB}{106, 222, 55}
+
+\begin{table*}[t!]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|C{2.3cm}C{2.3cm}C{2.3cm}|cc|c}
+ & \multicolumn{3}{b}{\textsc{Video-language Entailment (videocon)}} & \multicolumn{2}{r}{\textsc{Text-to-Video Retrieval}} & \cellcolor{VideoQAGreen}\textsc{Video QA}\\
+& \cellcolor{VideoConBlue}LLM & \cellcolor{VideoConBlue}Human & \cellcolor{VideoConBlue}Human-Hard& \cellcolor{RetrievalRed}SSv2-Temporal & \cellcolor{RetrievalRed}SSv2-Events & \cellcolor{VideoQAGreen}ATP-Hard\\
+\midrule
+Without synthetic videos & \cellcolor{best}87.66 & \cellcolor{best}77.37 &74.56 & 12.14 & \cellcolor{best}10.62 & 35.30 \\
+All conditioned & 86.02 & 75.76 & 73.77 & 11.19 & 6.02 & 35.19 \\
+None conditioned & 86.44 & 77.16 & \cellcolor{best}75.01 & \cellcolor{best}13.66 & 8.98 & \cellcolor{best}35.90 \\
+\midrule
+$E(F,T_R) - E(F,T_S) < 0.00$ & 86.23 & 76.81 & 74.45 & 13.11 & 8.12 & 34.27 \\
+$E(F,T_R) - E(F,T_S) < 0.15$ & 86.06 & 76.40 & 74.08 & 12.26 & 7.53 &34.54 \\
+$E(F,T_R) - E(F,T_S) < 0.30$ & 86.01 & 76.21 & 74.00 & 11.39 & 6.86 & 34.38 \\
+\bottomrule
+\end{tabular}%
+}
+\caption{}
+\end{table*}

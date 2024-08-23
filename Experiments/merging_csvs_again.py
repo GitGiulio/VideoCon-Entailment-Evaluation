@@ -28,6 +28,9 @@ conditioned_clip['unconditioned_clip'] = -2
 conditioned_clip['unconditioned_llava'] = -2
 conditioned_clip['unconditioned_clip'] = -2
 conditioned_clip['D(mean_wv(F,R),mean_wv(F,S))'] = -2
+conditioned_clip['D(llava(F,R),llava(F,S))'] = -2
+conditioned_clip['D(instructblip(F,R),instructblip(F,S))'] = -2
+conditioned_clip['D(clip_flant(F,R),clip_flant(F,S))'] = -2
 conditioned_clip['caption'] = -2
 conditioned_clip['unconditioned_videopath'] = -2
 
@@ -94,6 +97,9 @@ for index, row in conditioned_clip.iterrows():
     #print("NON SKIPPATOOOOOOOO________________________________________")
     #print(complete_df.loc[(complete_df['videopath'] == trimed_vp) & (complete_df['neg_caption'] == text)]['D(mean_wv(F,R),mean_wv(F,S))'].values)
     conditioned_clip['D(mean_wv(F,R),mean_wv(F,S))'].at[index] = complete_df.loc[(complete_df['videopath'] == trimed_vp) & (complete_df['neg_caption'] == text)]['D(mean_wv(F,R),mean_wv(F,S))']
+    conditioned_clip['D(llava(F,R),llava(F,S))'].at[index] = complete_df.loc[(complete_df['videopath'] == trimed_vp) & (complete_df['neg_caption'] == text)]['D(llava(F,R),llava(F,S))']
+    conditioned_clip['D(instructblip(F,R),instructblip(F,S))'].at[index] = complete_df.loc[(complete_df['videopath'] == trimed_vp) & (complete_df['neg_caption'] == text)]['D(instructblip(F,R),instructblip(F,S))']
+    conditioned_clip['D(clip_flant(F,R),clip_flant(F,S))'].at[index] = complete_df.loc[(complete_df['videopath'] == trimed_vp) & (complete_df['neg_caption'] == text)]['D(clip_flant(F,R),clip_flant(F,S))']
     conditioned_clip['caption'].at[index] = complete_df.loc[(complete_df['videopath'] == trimed_vp) & (complete_df['neg_caption'] == text)]['caption']
     conditioned_clip['unconditioned_videopath'].at[index] = unconditioned_clip.loc[
         (unconditioned_clip['trimed_videopath'] == trimed_vp) & (unconditioned_clip['text'] == text)

@@ -60,7 +60,7 @@ def filter(df,val,x,y):
     return a
 
 
-a = filter(df,77,'D(mean_wv(F,R),mean_wv(F,S))','D(mean_wv(Vu,S),mean_wv(Vc,S))')
+a = filter(df,33,'D(mean_wv(F,R),mean_wv(F,S))','D(mean_wv(Vu,S),mean_wv(Vc,S))')
 
 size = 0.6
 transparency = 1
@@ -78,6 +78,7 @@ plt.xlim([-1,1])
 plt.ylim([-1,1])
 
 xs = np.linspace(-1, 1, 10000)
+ys = np.linspace(0, 0, 10000)
 z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 1)
 p = np.poly1d(z)
 plt.plot(xs, p(xs),'r-',linewidth=0.6, label='linear regression')
@@ -86,6 +87,9 @@ xs = np.linspace(0, 1, 10000)
 z = np.polyfit(a['D(mean_wv(F,R),mean_wv(F,S))'], a['D(mean_wv(Vu,S),mean_wv(Vc,S))'], 2)
 p = np.poly1d(z)
 plt.plot(xs, p(xs),'b-',linewidth=0.6, label='Trend line')
+xs = np.linspace(-1, 1, 10000)
+plt.plot(xs, ys,'--',c='#505050',linewidth=0.6)
+plt.plot(ys, xs,'--',c='#505050',linewidth=0.6)
 
 plt.legend(markerscale=5, ncol=1,loc=3)
 

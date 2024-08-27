@@ -48,24 +48,24 @@ for index, row in dataframe.iterrows():
         img_path = first_frames_dictionary[row['videopath']]['image']
 
         images = [img_path] #
-        texts = [row['caption'], row['neg_caption']]
+        texts = [row['caption'], row['contrasted_caption']]
 
         clip_results = clip_flant5_score(images=images, texts=texts)
         llava_results = llava_score(images=images, texts=texts)
         instructblip_results = instructblip_score(images=images, texts=texts)
 
         # I save the values obtained by the model in the pandas dataframe
-        dataframe['clip_flant(ff-caption)'].at[index] = clip_results[0][0].cpu().numpy()
-        dataframe['clip_flant(ff-neg_cap)'].at[index] = clip_results[0][1].cpu().numpy()
+        dataframe['clip_flant(F,Tr)'].at[index] = clip_results[0][0].cpu().numpy()
+        dataframe['clip_flant(F,Ts)'].at[index] = clip_results[0][1].cpu().numpy()
         dataframe['clip_flant_difference'].at[index] = clip_results[0][0].cpu().numpy() - clip_results[0][1].cpu().numpy()
 
-        dataframe['llava(ff-caption)'].at[index] = clip_results[0][0].cpu().numpy()
-        dataframe['llava(ff-neg_cap)'].at[index] = clip_results[0][1].cpu().numpy()
-        dataframe['llava_difference'].at[index] = clip_results[0][0].cpu().numpy() - clip_results[0][1].cpu().numpy()
+        dataframe['llava(F,Tr)'].at[index] = llava_results[0][0].cpu().numpy()
+        dataframe['llava(F,Ts)'].at[index] = llava_results[0][1].cpu().numpy()
+        dataframe['llava_difference'].at[index] = llava_results[0][0].cpu().numpy() - llava_results[0][1].cpu().numpy()
 
-        dataframe['instructblip(ff-caption)'].at[index] = clip_results[0][0].cpu().numpy()
-        dataframe['instructblip(ff-neg_cap)'].at[index] = clip_results[0][1].cpu().numpy()
-        dataframe['instructblip_difference'].at[index] = clip_results[0][0].cpu().numpy() - clip_results[0][1].cpu().numpy()
+        dataframe['instructblip(F,Tr)'].at[index] = instructblip_results[0][0].cpu().numpy()
+        dataframe['instructblip(F,Ts)'].at[index] = instructblip_results[0][1].cpu().numpy()
+        dataframe['instructblip_difference'].at[index] = instructblip_results[0][0].cpu().numpy() - instructblip_results[0][1].cpu().numpy()
 
     else:
         print('EXCEPTION')

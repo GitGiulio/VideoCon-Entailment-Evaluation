@@ -96,7 +96,7 @@ ax[1].plot(df['clip_flant(F,S)'], p(df['clip_flant(F,S)']),"r-", label='Trend li
 
 
 fig.set_tight_layout(tight=True)
-plt.savefig(f'A1_clip_flant_comparison.png', dpi=300)
+plt.savefig(f'B1_clip_flant_comparison.png', dpi=300)
 plt.clf()
 
 matplotlib.pyplot.close()

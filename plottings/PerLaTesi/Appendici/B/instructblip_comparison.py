@@ -94,7 +94,7 @@ p = np.poly1d(z)
 ax[1].plot(df['instructblip(F,S)'], p(df['instructblip(F,S)']),"r-", label='Trend line')
 
 fig.set_tight_layout(tight=True)
-plt.savefig(f'A1_instructblip_comparison.png', dpi=300)
+plt.savefig(f'B3_instructblip_comparison.png', dpi=300)
 plt.clf()
 
 matplotlib.pyplot.close()

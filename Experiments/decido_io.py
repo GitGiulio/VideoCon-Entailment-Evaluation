@@ -24,9 +24,9 @@ NO = "No"
 si_o_no = NO
 
 for index, row in input.iterrows():
-    if row['D(llava(F,R),llava(F,S))'] == -2:
+    if row['D(mean_wv(F,R),mean_wv(F,S))'] == -2:
         continue
-    if row['D(llava(F,R),llava(F,S))'] > HYPERPARAMETER:
+    if row['D(mean_wv(F,R),mean_wv(F,S))'] > HYPERPARAMETER:
         # prima coppia (V_S_U,T_R)
         caption = row['caption']
         si_o_no = NO
@@ -56,5 +56,19 @@ for index, row in input.iterrows():
         df = pd.concat([df, pd.DataFrame([{"videopath": f"{videopath_conditioned}",
                    "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
                    "split": "train"}])], ignore_index=True)
+        # prima coppia (V_S_U,T_R)
+        caption = row['caption']
+        si_o_no = NO
+        videopath_unconditioned = row['unconditioned_videopath']
+        df = pd.concat([df, pd.DataFrame([{"videopath": f"{videopath_unconditioned}",
+                                           "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
+                                           "split": "train"}])], ignore_index=True)
 
-df.to_csv('training_csvs/llava_H_0.csv', index=False)
+        # prima coppia (V_S_U,T_S)
+        caption = row['text']
+        si_o_no = SI
+        df = pd.concat([df, pd.DataFrame([{"videopath": f"{videopath_unconditioned}",
+                                           "caption": f"The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\nHuman: <|video|>\nHuman: Does this video entail the description: \"{caption}\"?\nAI: {si_o_no}",
+                                           "split": "train"}])], ignore_index=True)
+
+df.to_csv('training_csvs/H_0_with_all_unconditioned.csv', index=False)

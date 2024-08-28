@@ -2,13 +2,43 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import scienceplots
 
+def centered_subplots(rows, figsize=None):
+    grid_dim = max(rows)
+    grid_shape = (len(rows), 2 * grid_dim)
+
+    if figsize:
+        fig = plt.figure(figsize=(figsize))
+    else:
+        fig = plt.figure(figsize=(2 * grid_dim, 3 * len(rows)))
+
+    allaxes = []
+
+    jrow = 0
+    for row in rows:
+        offset = 0
+        for i in range(row):
+            if row < grid_dim:
+                offset = grid_dim - row
+
+            ax_position = (jrow, 2 * i + offset)
+            ax = plt.subplot2grid(grid_shape, ax_position, fig=fig, colspan=2)
+            allaxes.append(ax)
+
+        jrow += 1
+
+    return allaxes
+
+
 plt.style.use(['science'])
 
 df = pd.read_csv('../../with_mean.csv')
-fig, ax = plt.subplots(1, 3, figsize=(15, 5))
-plt.rcParams.update({'font.size': 12})
+plt.rcParams.update({'font.size': 11})
 
-fig.suptitle('Conditioned video alignment distribution by model', fontsize=15)
+fig, ax = plt.subplots(2, 2, figsize=(10, 10))
+
+ax = centered_subplots([2,1],figsize=(10, 10))
+
+plt.suptitle('Conditioned video alignment distribution by model',fontsize=13)
 
 ax[0].hist(df['clip_flant(Vc_mean,S)'],color='#f79410',bins=200)
 m0 = [df['clip_flant(Vc_mean,S)'].mean(),df['clip_flant(Vc_mean,S)'].mean()]
@@ -41,7 +71,7 @@ ax[2].set_xlim([0,1])
 ax[2].set_ylim([0,255])
 ax[2].legend(facecolor="pink", loc=2,markerscale=5)
 
-fig.set_tight_layout(tight=True)
+plt.tight_layout()
 
 plt.savefig(f'A2_models_comparison.png', dpi=300)
 plt.clf()

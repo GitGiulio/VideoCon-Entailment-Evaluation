@@ -51,16 +51,19 @@ def filter(df,val,x,y):
     for index,row in df.iterrows():
         c += 1
         if c >= val:
-            b1 = 0
-            b2 = 0
+            b1 = 2
+            b2 = 2
             for i in range(val):
-                b1 += df[x].at[index-i]
-                b2 += df[y].at[index-i]
-            a = pd.concat([a, pd.DataFrame([{x:  b1/val,y: b2/val}])],ignore_index=True)
+                if b1 > df[x].at[index-i]:
+                    b1 = df[x].at[index-i]
+                if b2 > df[y].at[index-i]:
+                    b2 = df[y].at[index-i]
+
+            a = pd.concat([a, pd.DataFrame([{x:  b1,y: b2}])],ignore_index=True)
     return a
 
 
-a = filter(df,23,'mean_wv(F,S)','mean_wv(Vu,S)')
+a = filter(df,77,'mean_wv(F,S)','mean_wv(Vu,S)')
 
 size = 1
 transparency = 1
@@ -70,7 +73,7 @@ plt.rcParams.update({'font.size': 5})
 #plt.title('Unconditioned - conditioned trend', fontsize=7)
 
 plt.scatter(df['mean_wv(F,S)'], df['mean_wv(Vu,S)'], c='#7d5f8d',marker='.', s=size, alpha=transparency,label='raw data')
-#plt.scatter(a['mean_wv(F,S)'], a['mean_wv(Vu,S)'], c='#00D7D7',marker='.', s=size, alpha=transparency,label='filtered')
+#plt.scatter(a['mean_wv(F,S)'], a['mean_wv(Vu,S)'], c='#00D7D7',marker='.', s=size, alpha=transparency,label='lower bound')
 plt.xlabel('models_average(F,$T_S$)')
 plt.ylabel('models_average($V_S^U$,$T_S$)')
 plt.xlim([0,1])
